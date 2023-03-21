@@ -7,12 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -47,16 +48,12 @@ class PetControllerTest {
     }
     @Test
     @DirtiesContext
-    void addPet_with_NotValidName(){
-        try {
+    void addPet_with_NotValidName() throws Exception {
             mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
                     .contentType(MediaType.APPLICATION_JSON).content("""               
-                                {"id": null, "name": "","nameOfBreed":"albino", "photo":"albino.png", "supplies": ["Water Bottle","Roomy Cage"] }
-                                    """)
-            );
-        }catch(Exception e){
-            status().isBadRequest();
-        }
+                                {"id": null, "name": null,"nameOfBreed":"albino", "photo":"albino.png", "supplies": ["Water Bottle","Roomy Cage"] }
+                                    """))
+                    .andExpect(status().isInternalServerError());
 
     }
 

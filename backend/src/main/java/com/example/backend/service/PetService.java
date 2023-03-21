@@ -14,7 +14,7 @@ public class PetService {
 
     public Pet addPet(PetDTO newPet){
         if(newPet.name()==null || newPet.name().equals("")){
-            throw new IllegalArgumentException("missing name");
+            throw new IllegalArgumentException();
         }
         String id = idService.generateId();
         Pet newPetWithId = new Pet(id,newPet.name(),newPet.nameOfBreed(), newPet.photo(),newPet.supplies());
