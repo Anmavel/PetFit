@@ -65,5 +65,12 @@ class PetDTOTest {
         // THEN
         assertNotEquals(pet1.hashCode(), pet2.hashCode());
     }
+    @Test
+    void testToString() {
+        PetDTO pet = new PetDTO("Fido", "Labrador Retriever", "fido.jpg", new String[]{"food", "toys"});
+        String expected = "Pet{, name='Fido', nameOfBreed='Labrador Retriever', photo='fido.jpg', supplies=[food, toys]}";
+        String actual = pet.toString();
+        assertEquals(expected, actual);
+    }
 
 }
