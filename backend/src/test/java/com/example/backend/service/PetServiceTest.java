@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Pet;
+import com.example.backend.model.PetDTO;
 import com.example.backend.repository.PetRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,25 +16,29 @@ class PetServiceTest {
     PetService petService;
     IdService idService;
     Pet pet1;
+    PetDTO pet1DTO;
 
     @BeforeEach
     void setUp(){
         petRepo=mock(PetRepo.class);
         idService=mock(IdService.class);
         petService=new PetService(petRepo,idService);
-        pet1 =new Pet("1","Whiskers","albino","albino.png", new String[]{"Water Bottle", "Roomy Cage"});
+        String[] supplies = new String[]{"Water Bottle", "Roomy Cage"};
+        pet1DTO =new PetDTO("Whiskers","albino","albino.png",supplies );
+        pet1 =new Pet("1",pet1DTO.name(),pet1DTO.nameOfBreed(), pet1DTO.photo(), pet1DTO.supplies());
     }
 
     @Test
     void addPet() {
         //GIVEN
         when(idService.generateId()).thenReturn("Whatever Id");
-        Pet petWithId = new Pet("Whatever Id",pet1.name(),pet1.nameOfBreed(),pet1.photo(),pet1.Supplies());
+        Pet petWithId = new Pet("Whatever Id",pet1.name(),pet1.nameOfBreed(),pet1.photo(),pet1.supplies());
         when(petRepo.save(petWithId)).thenReturn(petWithId);
         //WHEN
         Pet expected=petWithId;
-        Pet actualPet=petService.addPet(pet1);
+        Pet actualPet=petService.addPet(pet1DTO);
         //THEN
+        verify(idService).generateId();
         verify(petRepo).save(petWithId);
         Assertions.assertEquals(expected,actualPet);
     }
@@ -42,7 +47,7 @@ class PetServiceTest {
     void addPet_MissingName(){
         //GIVEN
         when(idService.generateId()).thenReturn("Whatever Id");
-        Pet invalidPet =new Pet("Whatever Id",null, pet1.nameOfBreed(),pet1.photo(), pet1.Supplies());
+        PetDTO invalidPet =new PetDTO(null, pet1.nameOfBreed(), pet1.photo(), pet1.supplies());
         //WHEN & THEN
         assertThrows(IllegalArgumentException.class,()->petService.addPet(invalidPet));
     }
