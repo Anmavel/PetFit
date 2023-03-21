@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -51,9 +52,9 @@ class PetControllerTest {
     void addPet_with_NotValidName() throws Exception {
             mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
                     .contentType(MediaType.APPLICATION_JSON).content("""               
-                                {"id": null, "name": null,"nameOfBreed":"albino", "photo":"albino.png", "supplies": ["Water Bottle","Roomy Cage"] }
+                                {"name":"","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage"] }
                                     """))
-                    .andExpect(status().isInternalServerError());
+                    .andExpect(status().isBadRequest());
 
     }
 
