@@ -6,7 +6,6 @@ import com.example.backend.repository.PetRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -24,8 +23,9 @@ class PetServiceTest {
         idService=mock(IdService.class);
         petService=new PetService(petRepo,idService);
         String[] supplies = new String[]{"Water Bottle", "Roomy Cage"};
-        pet1DTO =new PetDTO("Whiskers","albino","albino.png",supplies );
+        pet1DTO =new PetDTO("Whiskers","albino","albino.png",supplies);
         pet1 =new Pet("1",pet1DTO.name(),pet1DTO.nameOfBreed(), pet1DTO.photo(), pet1DTO.supplies());
+
     }
 
     @Test
@@ -51,5 +51,26 @@ class PetServiceTest {
         //WHEN & THEN
         assertThrows(IllegalArgumentException.class,()->petService.addPet(invalidPet));
     }
+    @Test
+    void addPet_add_New_Supplies() {
+        // GIVEN
+        when(idService.generateId()).thenReturn("Another Whatever Id");
+        String[] newSupplies =  new String[]{"food", "water", "toys"};
+        PetDTO pet2DTO =new PetDTO("Whiskers","albino","albino.png",newSupplies);
+        Pet petWithId_and_newSupplies = new Pet ("Another Whatever Id", pet1.name(),pet1.nameOfBreed(),pet1.photo(),newSupplies);
+        when(petRepo.save(petWithId_and_newSupplies)).thenReturn(petWithId_and_newSupplies);
+
+
+        //WHEN
+        Pet expected=petWithId_and_newSupplies;
+        Pet actualPet=petService.addPet(pet2DTO);
+
+        //THEN
+        verify(idService).generateId();
+        verify(petRepo).save(petWithId_and_newSupplies);
+        Assertions.assertEquals(expected,actualPet);
+
+    }
 
 }
+
