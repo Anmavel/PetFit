@@ -60,7 +60,6 @@ class PetServiceTest {
         Pet petWithId_and_newSupplies = new Pet ("Another Whatever Id", pet1.name(),pet1.nameOfBreed(),pet1.photo(),newSupplies);
         when(petRepo.save(petWithId_and_newSupplies)).thenReturn(petWithId_and_newSupplies);
 
-
         //WHEN
         Pet expected=petWithId_and_newSupplies;
         Pet actualPet=petService.addPet(pet2DTO);
@@ -68,6 +67,25 @@ class PetServiceTest {
         //THEN
         verify(idService).generateId();
         verify(petRepo).save(petWithId_and_newSupplies);
+        Assertions.assertEquals(expected,actualPet);
+
+    }
+    @Test
+    void addPet_add_Empty_Supplies() {
+        // GIVEN
+        when(idService.generateId()).thenReturn("Another Whatever Id");
+        String[] noSupplies =  new String[]{};
+        PetDTO pet2DTO =new PetDTO("Whiskers","albino","albino.png",noSupplies);
+        Pet petWithId_and_noSupplies = new Pet ("Another Whatever Id", pet1.name(),pet1.nameOfBreed(),pet1.photo(),noSupplies);
+        when(petRepo.save(petWithId_and_noSupplies)).thenReturn(petWithId_and_noSupplies);
+
+        //WHEN
+        Pet expected=petWithId_and_noSupplies;
+        Pet actualPet=petService.addPet(pet2DTO);
+
+        //THEN
+        verify(idService).generateId();
+        verify(petRepo).save(petWithId_and_noSupplies);
         Assertions.assertEquals(expected,actualPet);
 
     }
