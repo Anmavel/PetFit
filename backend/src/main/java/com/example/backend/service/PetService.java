@@ -13,7 +13,7 @@ public class PetService {
     private final IdService idService;
 
     public Pet addPet(PetDTO newPet){
-        if(newPet.name()==null ||newPet.name().equals("")){
+        if(newPet.name()==null || newPet.name().equals("")){
             throw new IllegalArgumentException("missing name");
         }
         String id = idService.generateId();
