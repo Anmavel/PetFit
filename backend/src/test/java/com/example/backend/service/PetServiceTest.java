@@ -6,6 +6,8 @@ import com.example.backend.repository.PetRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.server.ResponseStatusException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -49,7 +51,7 @@ class PetServiceTest {
         when(idService.generateId()).thenReturn("Whatever Id");
         PetDTO invalidPet =new PetDTO(null, pet1.nameOfBreed(), pet1.photo(), pet1.supplies());
         //WHEN & THEN
-        assertThrows(IllegalArgumentException.class,()->petService.addPet(invalidPet));
+        assertThrows(ResponseStatusException.class,()->petService.addPet(invalidPet));
     }
     @Test
     void addPet_add_New_Supplies() {
