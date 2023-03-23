@@ -8,6 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -24,7 +28,7 @@ class PetServiceTest {
         petRepo=mock(PetRepo.class);
         idService=mock(IdService.class);
         petService=new PetService(petRepo,idService);
-        String[] supplies = new String[]{"Water Bottle", "Roomy Cage"};
+        List<String> supplies = new ArrayList<>(List.of("Water Bottle","Roomy Cage"));
         pet1DTO =new PetDTO("Whiskers","albino","albino.png",supplies);
         pet1 =new Pet("1",pet1DTO.name(),pet1DTO.nameOfBreed(), pet1DTO.photo(), pet1DTO.supplies());
 
@@ -46,7 +50,7 @@ class PetServiceTest {
     }
 
     @Test
-    void addPet_MissingName(){
+    void when_addPet_with_MissingName_then_BadRequest(){
         //GIVEN
         when(idService.generateId()).thenReturn("Whatever Id");
         PetDTO invalidPet =new PetDTO(null, pet1.nameOfBreed(), pet1.photo(), pet1.supplies());
@@ -54,10 +58,10 @@ class PetServiceTest {
         assertThrows(ResponseStatusException.class,()->petService.addPet(invalidPet));
     }
     @Test
-    void addPet_add_New_Supplies() {
+    void when_addPet_with_new_Supplies_then_OK() {
         // GIVEN
         when(idService.generateId()).thenReturn("Another Whatever Id");
-        String[] newSupplies =  new String[]{"food", "water", "toys"};
+        List<String> newSupplies = new ArrayList<>(List.of("food","Water", "toys"));
         PetDTO pet2DTO =new PetDTO("Whiskers","albino","albino.png",newSupplies);
         Pet petWithId_and_newSupplies = new Pet ("Another Whatever Id", pet1.name(),pet1.nameOfBreed(),pet1.photo(),newSupplies);
         when(petRepo.save(petWithId_and_newSupplies)).thenReturn(petWithId_and_newSupplies);
@@ -73,10 +77,10 @@ class PetServiceTest {
 
     }
     @Test
-    void addPet_add_Empty_Supplies() {
+    void when_addPet_and_add_Empty_Supplies_then_OK() {
         // GIVEN
         when(idService.generateId()).thenReturn("Another Whatever Id");
-        String[] noSupplies =  new String[]{};
+        List<String> noSupplies = new ArrayList<>(emptyList());
         PetDTO pet2DTO =new PetDTO("Whiskers","albino","albino.png",noSupplies);
         Pet petWithId_and_noSupplies = new Pet ("Another Whatever Id", pet1.name(),pet1.nameOfBreed(),pet1.photo(),noSupplies);
         when(petRepo.save(petWithId_and_noSupplies)).thenReturn(petWithId_and_noSupplies);

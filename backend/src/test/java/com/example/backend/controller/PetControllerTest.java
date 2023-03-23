@@ -12,6 +12,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,7 +31,7 @@ class PetControllerTest {
 
     @BeforeEach
     void setUp(){
-        String[] supplies = new String[]{"Water Bottle", "Roomy Cage"};
+        List<String> supplies = new ArrayList<>(List.of("Water Bottle","Roomy Cage"));
         pet1 =new Pet("1","Whiskers","albino","albino.png",supplies);
     }
 
@@ -49,7 +52,7 @@ class PetControllerTest {
     }
     @Test
     @DirtiesContext
-    void addPet_with_NotValidName() throws Exception {
+    void when_addPet_with_NotValidName_then_BadRequest() throws Exception {
             mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
                     .contentType(MediaType.APPLICATION_JSON).content("""               
                                 {"name":"","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage"] }
