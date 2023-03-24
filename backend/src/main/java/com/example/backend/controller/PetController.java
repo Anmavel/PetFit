@@ -5,6 +5,7 @@ import com.example.backend.model.PetDTO;
 import com.example.backend.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -16,5 +17,11 @@ public class PetController {
     public Pet addPet(@RequestBody PetDTO pet){
         return petService.addPet(pet);
     }
+    @DeleteMapping("{id}")
+    public List<Pet> deleteTaskById(@PathVariable String id) {
+        return petService.deletePet(id);
+    }
+
+
 
 }

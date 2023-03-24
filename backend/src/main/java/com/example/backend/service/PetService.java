@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.exception.PetNotFoundException;
 import com.example.backend.model.Pet;
 import com.example.backend.model.PetDTO;
 import com.example.backend.repository.PetRepo;
@@ -7,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,4 +27,12 @@ public class PetService {
 
     }
 
+    public List<Pet> deletePet(String id) {
+        Optional<Pet> optionalPet =petRepo.findById(id);
+        if (optionalPet.isEmpty()){
+            throw new PetNotFoundException("Pet with id"+ id+ "doesn't exist");
+        }
+        petRepo.deleteById(id);
+        return petRepo.findAll();
+        }
 }

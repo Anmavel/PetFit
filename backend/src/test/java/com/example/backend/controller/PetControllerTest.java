@@ -61,4 +61,15 @@ class PetControllerTest {
 
     }
 
+    @Test
+    @DirtiesContext
+    void when_deletePet_and_PetIdExists_then_Return_emptyList() throws Exception{
+        petRepo.save(pet1);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/pets/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]"));
+
+    }
+
+
 }
