@@ -1,7 +1,7 @@
 import "./Header.css"
 
 type HeaderProps={
-    image:string|undefined
+    image:string
 }
 export default function Header(props:HeaderProps){
 

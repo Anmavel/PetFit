@@ -25,7 +25,7 @@ export default function PetGallery(props: PetGalleryProps){
       <Layout>
           <h2>All Pets</h2>
           <section className={"Pet-Gallery"}>
-              {pets.length>0? pets:"No Pets yet"}<br/>
+              {pets.length>0 ? pets:"No Pets yet"}<br/>
               <button type={"submit"} onClick={onClickAdd}> Add </button>
           </section>
       </Layout>

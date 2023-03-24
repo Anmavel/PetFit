@@ -35,7 +35,7 @@ class PetServiceTest {
     }
 
     @Test
-    void addPet() {
+    void when_addPet_then_OK() {
         //GIVEN
         when(idService.generateId()).thenReturn("Whatever Id");
         Pet petWithId = new Pet("Whatever Id",pet1.name(),pet1.nameOfBreed(),pet1.photo(),pet1.supplies());

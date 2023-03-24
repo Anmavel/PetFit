@@ -37,7 +37,7 @@ class PetControllerTest {
 
     @Test
     @DirtiesContext
-    void addTask() throws Exception {
+    void when_addPet_then_OK() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
                         .contentType(MediaType.APPLICATION_JSON).content("""               
                                 {"id": null, "name": "Whiskers","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage"] }
