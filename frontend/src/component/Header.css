@@ -1,0 +1,25 @@
+header{
+    display: flex;
+    justify-content: center;
+
+}
+.header h2{
+    width: 38px;
+    height: 18px;
+    font-family: 'Lobster', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #57BD96;
+
+}
+.header img{
+
+    width: 156px;
+    height: 41px;
+    left: 101px;
+    top: 72px;
+}
+
+
+
