@@ -9,7 +9,6 @@ type AddPetProps = {
 
 }
 
-
 export default function AddPet(props: AddPetProps) {
     const [name, setName] = useState<string>("")
     const [nameOfBreed, setNameOfBreed] = useState<string>("")

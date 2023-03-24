@@ -1,0 +1,18 @@
+.pet-details{
+
+
+}
+
+.pet-details button {
+    background-color: indianred;
+    color: white;
+    padding: 7px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pet-details button:hover {
+    background-color: darkred;
+}
