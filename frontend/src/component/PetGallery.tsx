@@ -2,6 +2,8 @@ import {Pet} from "../model/Pet"
 import PetCard from "./PetCard"
 import Layout from "./Layout";
 import {useNavigate} from "react-router-dom";
+import "../component/PetGallery.css"
+import "../component/ButtonAddGallery.css"
 
 type PetGalleryProps = {
     pets:Pet[],
@@ -24,10 +26,10 @@ export default function PetGallery(props: PetGalleryProps){
     return (
       <Layout>
           <h2>All Pets</h2>
-          <section className={"Pet-Gallery"}>
+          <section className={"pet-gallery"}>
               {pets.length>0 ? pets:"No Pets yet"}<br/>
-              <button type={"submit"} onClick={onClickAdd}> Add </button>
           </section>
+          <button className={"button-add-gallery"} type={"submit"} onClick={onClickAdd}> Add </button>
       </Layout>
 
 

@@ -17,5 +17,19 @@ export default function usePets(){
 
     }
 
-    return {pets,postNewPet}
+    function deletePet(id:string){
+        return axios.delete("/api/pets/"+id)
+            .then(response=>response.data
+                .map((pet:{})=>
+                    ({
+                        ...pet
+                    })
+
+            ))
+            .then(setPets)
+            .catch(console.error)
+    }
+
+
+    return {pets,postNewPet,deletePet}
 }

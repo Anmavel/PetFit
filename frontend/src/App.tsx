@@ -5,9 +5,10 @@ import {Route, Routes} from "react-router-dom";
 import PetGallery from "./component/PetGallery";
 import usePets from "./hooks/usePets"
 import AddPet from "./page/AddPet";
+import PetDetails from "./page/PetDetails";
 
 function App() {
-    const {pets, postNewPet} = usePets();
+    const {pets, postNewPet,deletePet} = usePets();
 
     return (
         <div className="App">
@@ -16,6 +17,7 @@ function App() {
                 <Route path={"/"} element={<PetGallery pets={pets} navigateTo={"/pets/add"}/>}/>
                 <Route path={"/pets"} element={<PetGallery pets={pets} navigateTo={"/pets/add"}/>}/>
                 <Route path={"/pets/add"} element={<AddPet navigateTo={"/pets/"} onSubmit={postNewPet}/>}/>
+                <Route path={"/pets/:id"} element={<PetDetails pets={pets} deletePet={deletePet}/>}/>
             </Routes>
             <Footer/>
         </div>
