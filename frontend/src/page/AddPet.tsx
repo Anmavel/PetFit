@@ -2,6 +2,7 @@ import React, {ChangeEvent, FormEvent, useState} from "react";
 import {Pet} from "../model/Pet";
 import {useNavigate} from "react-router-dom";
 import Layout from "../component/Layout";
+import "../page/AddPet.css"
 
 type AddPetProps = {
     navigateTo: string | undefined
@@ -51,14 +52,18 @@ export default function AddPet(props: AddPetProps) {
         <Layout>
         <form onSubmit={formSubmitHandler} className={"add-pet"}>
             <label>
-                <h2>Please write the name of your Pet</h2>
+                <h2>Please register your new pet</h2>
+            </label>
+            <div className={"form-add"}>
                 <input type={"text"} onChange={handleNameChange} value={name} placeholder={"write the name of your Pet"}
                        required={true}/>
                 <input type={"text"} onChange={handleBreedChange} value={nameOfBreed} placeholder={"breed"} required={false}/>
                 <input type={"text"} onChange={handlePhotoChange} value={photo} placeholder={"photo"} required={false}/>
                 <input type={"text"} onChange={handleSuppliesChange} value={supplies} placeholder={"water bottle, food"} required={false}/>
-            </label>
-            <button type={"submit"}> Add</button>
+                <button type={"submit"}> Add</button>
+                <h6>Natasya Chen</h6>
+            </div>
+
         </form>
         </Layout>
     )

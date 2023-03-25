@@ -1,5 +1,16 @@
 .pet-details{
-    /* It is a empty css */
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    height: 50vh;
+    width: 50vh;
+    margin: auto;
+    overflow: auto;
+    padding: 100px 40px 40px 40px;
+    background: #EBE6E6;
+    border: #666666;
 
 }
 

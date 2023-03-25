@@ -1,3 +1,5 @@
+import "./Footer.css"
+
 export default function Footer(){
     const today = new Date()
     return(
