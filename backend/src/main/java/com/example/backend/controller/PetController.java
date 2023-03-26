@@ -12,7 +12,8 @@ import java.util.List;
 @RequestMapping("/api/pets/")
 public class PetController {
     private final PetService petService;
-
+    @GetMapping
+    public List<Pet> getAllPets(){ return petService.getAllPets();}
     @PostMapping
     public Pet addPet(@RequestBody PetDTO pet){
         return petService.addPet(pet);

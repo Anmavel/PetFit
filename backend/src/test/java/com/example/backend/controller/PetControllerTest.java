@@ -37,6 +37,15 @@ class PetControllerTest {
 
     @Test
     @DirtiesContext
+    void when_getAllPets_then_OK() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/pets/"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]"));
+
+    }
+
+    @Test
+    @DirtiesContext
     void when_addPet_then_OK() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
                         .contentType(MediaType.APPLICATION_JSON).content("""               
