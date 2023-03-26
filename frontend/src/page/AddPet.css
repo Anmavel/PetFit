@@ -1,0 +1,55 @@
+.form-add {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    height: 50vh;
+    width: 50vh;
+    margin: auto;
+    overflow: auto;
+    padding: 80px 20px 20px 20px;
+    background: #EBE6E6;
+    border: #666666;
+
+}
+.form-add:hover{
+
+    background-image: url("../../public/natasya-chen-IxejHK_ToZA-unsplash.jpg");
+}
+
+.form-add h2 {
+    font-family: 'Lobster', serif;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.form-add button {
+    width: 95%;
+    padding: 20px 20px 20px 20px;
+    margin: 1px 0;
+    border: #57BD96;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: large;
+    transition-duration: 0.4s;
+
+}
+
+.form-add button:hover {
+    background-color: #57BD96;
+    color: white;
+}
+.form-add input{
+    width: 90%;
+    height: 50px;
+    font-size: medium;
+    padding: 10px 10px 10px 10px;
+
+}
+.form-add h6{
+    color: #EBE6E6;
+}
+.form-add h6:hover{
+    color:black;
+}

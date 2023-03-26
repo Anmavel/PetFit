@@ -1,13 +1,18 @@
 .pet-gallery {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
     border: 2px solid #57BD96;
-    border-radius: 50px;
+    border-radius: 4px;
     width: 80%;
     margin: auto;
     /*border-radius: 5px;*/
     overflow: auto;
     padding: 5px;
+    background: #EBE6E6;
+    min-height: 40vh;
+    min-width: 50vh;
+
 }
