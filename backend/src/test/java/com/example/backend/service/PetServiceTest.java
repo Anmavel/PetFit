@@ -111,7 +111,7 @@ class PetServiceTest {
     }
 
     @Test
-    void when_deletePet_and_PetExists_then_ThrowException() {
+    void when_deletePet_and_PetExists_then_Return_EmptyList() {
         //GIVEN
         when(petRepo.findById(pet1.id())).thenReturn(Optional.ofNullable(pet1));
         //WHEN

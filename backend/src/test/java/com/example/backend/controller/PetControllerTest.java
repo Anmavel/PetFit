@@ -1,7 +1,9 @@
 package com.example.backend.controller;
 
+import com.example.backend.exception.PetNotFoundException;
 import com.example.backend.model.Pet;
 import com.example.backend.repository.PetRepo;
+import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -70,6 +74,13 @@ class PetControllerTest {
                 .andExpect(content().json("[]"));
 
     }
-
+    @Test
+    @DirtiesContext
+    void when_deletePet_and_PetDoesntExists_then_ThrowException() throws Exception{
+        Throwable exception = assertThrows(ServletException.class, () -> {
+            mockMvc.perform(MockMvcRequestBuilders.delete("/api/pets/1000"));
+        });
+        assertTrue(exception.getCause() instanceof PetNotFoundException);
+    }
 
 }
