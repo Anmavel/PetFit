@@ -19,8 +19,7 @@ export default function AddPet(props: AddPetProps) {
 
     function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
         setName(event.target.value)
-    }
-    function handleBreedChange(event: ChangeEvent<HTMLInputElement>) {
+    }  function handleBreedChange(event: ChangeEvent<HTMLInputElement>) {
         setNameOfBreed(event.target.value)
     }
     function handleSuppliesChange(event: ChangeEvent<HTMLInputElement>) {
@@ -30,6 +29,7 @@ export default function AddPet(props: AddPetProps) {
     function handlePhotoChange(event: ChangeEvent<HTMLInputElement>) {
         setPhoto(event.target.value)
     }
+
 
     function formSubmitHandler(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()

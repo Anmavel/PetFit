@@ -30,14 +30,14 @@ class PetControllerTest {
     Pet pet1;
 
     @BeforeEach
-    void setUp(){
-        List<String> supplies = new ArrayList<>(List.of("Water Bottle","Roomy Cage"));
-        pet1 =new Pet("1","Whiskers","albino","albino.png",supplies);
+    void setUp() {
+        List<String> supplies = new ArrayList<>(List.of("Water Bottle", "Roomy Cage"));
+        pet1 = new Pet("1", "Whiskers", "albino", "albino.png", supplies);
     }
 
     @Test
     @DirtiesContext
-    void when_getAllPets_then_OK() throws Exception{
+    void when_getAllPets_then_OK() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/pets/"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
@@ -51,7 +51,7 @@ class PetControllerTest {
                         .contentType(MediaType.APPLICATION_JSON).content("""               
                                 {"id": null, "name": "Whiskers","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage"] }
                                     """)
-                        )
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """                        
@@ -59,20 +59,40 @@ class PetControllerTest {
                                     """
                 )).andExpect(jsonPath("$.id").isNotEmpty());
     }
+
     @Test
     @DirtiesContext
     void when_addPet_with_NotValidName_then_BadRequest() throws Exception {
-            mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
-                    .contentType(MediaType.APPLICATION_JSON).content("""               
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
+                        .contentType(MediaType.APPLICATION_JSON).content("""               
                                 {"name":"","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage"] }
                                     """))
-                    .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest());
 
     }
 
     @Test
     @DirtiesContext
-    void when_deletePet_and_PetIdExists_then_Return_emptyList() throws Exception{
+    void when_updatePet_then_OK() throws Exception {
+        petRepo.save(pet1);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/pets/1")
+                        .contentType(MediaType.APPLICATION_JSON).
+                        content(""" 
+                                {"id": "1","name": "Whiskers","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage", "Food"] }
+                                               
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        """
+                                  {"id": "1","name": "Whiskers","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage", "Food"] }
+                                """));
+
+
+    }
+
+    @Test
+    @DirtiesContext
+    void when_deletePet_and_PetIdExists_then_Return_emptyList() throws Exception {
         petRepo.save(pet1);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/pets/1"))
                 .andExpect(status().isOk())

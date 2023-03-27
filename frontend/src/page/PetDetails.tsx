@@ -7,6 +7,7 @@ import "../page/PetDetails.css"
 type PetDetailsProps = {
     pets: Pet[]
     deletePet: (id: string) => Promise<void>
+    updatePet:(updatedPet:Pet) => Promise<void>
 }
 
 export default function PetDetails(props: PetDetailsProps) {
@@ -32,17 +33,39 @@ export default function PetDetails(props: PetDetailsProps) {
             .then(() => navigate("/pets/"))
             .catch(console.error)
     }
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPet({ ...pet, [e.target.name]: e.target.value });
+    };
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+            props.updatePet(pet)
+                .then(() => {
+                    setPet(pet)
+                })
+
+    };
 
     return (
         <Layout>
             <h2>Pet details</h2>
-            <div className={"pet-details"}>
-                <div>{pet.name}</div>
-                <div>{pet.nameOfBreed}</div>
-                <div>{pet.photo}<br/></div>
-                <div>{pet.supplies}<br/></div>
-                <button onClick={handleDeleteButton}>Delete</button>
-            </div>
+            <form onSubmit={handleSubmit} className={"add-pet"}>
+                <label>
+                    <h2>Please register your new pet</h2>
+                </label>
+                <div className={"form-add"}>
+                    <input type="text" name="name" value={pet.name} onChange={handleChange}/>
+                    <input type={"text"} onChange={handleChange} name="nameOfBreed" value={pet.nameOfBreed} placeholder={"breed"} required={false}/>
+                    <input type={"text"} onChange={handleChange} name="photo" value={pet.photo} placeholder={"photo"} required={false}/>
+                    <input type={"text"} onChange={handleChange} name="supplies" value={pet.supplies} placeholder={"water bottle, food"} required={false}/>
+                    <button onClick={handleDeleteButton}>Delete</button>
+                    <br />
+                    <button type="submit">
+                        Update
+                    </button>
+
+                </div>
+
+            </form>
             <Link to={"/pets/"}>back to gallery</Link>
         </Layout>
     )
