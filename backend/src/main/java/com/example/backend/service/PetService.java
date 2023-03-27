@@ -16,6 +16,7 @@ import java.util.Optional;
 public class PetService {
     private final PetRepo petRepo;
     private final IdService idService;
+    public List<Pet> getAllPets(){ return petRepo.findAll();}
 
     public Pet addPet(PetDTO newPet){
         if(newPet.name()==null || newPet.name().equals("")){

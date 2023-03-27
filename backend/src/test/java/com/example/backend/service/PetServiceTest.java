@@ -37,6 +37,19 @@ class PetServiceTest {
     }
 
     @Test
+    void when_getAllPets_then_OK(){
+        //GIVEN
+        when(petRepo.findAll()).thenReturn(new ArrayList<>());
+        //WHEN
+        List<Pet> actual =petService.getAllPets();
+        List<Pet> expected=new ArrayList<>();
+        //THEN
+        verify(petRepo).findAll();
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
     void when_addPet_then_OK() {
         //GIVEN
         when(idService.generateId()).thenReturn("Whatever Id");
