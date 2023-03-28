@@ -7,7 +7,7 @@ import "../page/PetDetails.css"
 type PetDetailsProps = {
     pets: Pet[]
     deletePet: (id: string) => Promise<void>
-    updatePet:(updatedPet:Pet) => Promise<void>
+    updatePet: (updatedPet: Pet) => Promise<void>
 }
 
 export default function PetDetails(props: PetDetailsProps) {
@@ -33,16 +33,19 @@ export default function PetDetails(props: PetDetailsProps) {
             .then(() => navigate("/pets/"))
             .catch(console.error)
     }
+
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPet({ ...pet, [e.target.name]: e.target.value });
+        const name=e.target.name
+        const value=e.target.value
+        setPet({...pet, [name]:value });
+
     };
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-            props.updatePet(pet)
-                .then(() => {
-                    setPet(pet)
-                })
-
+        props.updatePet(pet)
+            .then(() => { setPet(pet)})
     };
 
     return (
@@ -53,12 +56,15 @@ export default function PetDetails(props: PetDetailsProps) {
                     <h2>Please register your new pet</h2>
                 </label>
                 <div className={"form-add"}>
-                    <input type="text" name="name" value={pet.name} onChange={handleChange}/>
-                    <input type={"text"} onChange={handleChange} name="nameOfBreed" value={pet.nameOfBreed} placeholder={"breed"} required={false}/>
-                    <input type={"text"} onChange={handleChange} name="photo" value={pet.photo} placeholder={"photo"} required={false}/>
-                    <input type={"text"} onChange={handleChange} name="supplies" value={pet.supplies} placeholder={"water bottle, food"} required={false}/>
+                    <input type={"text"} onChange={handleChange} name="name" value={pet.name} required={true}/>
+                    <input type={"text"} onChange={handleChange} name="nameOfBreed" value={pet.nameOfBreed}
+                           placeholder={"breed"} required={false}/>
+                    <input type={"text"} onChange={handleChange} name="photo" value={pet.photo} placeholder={"photo"}
+                           required={false}/>
+                    <input type={"text"} onChange={handleChange} name="supplies" value={pet.supplies}
+                           placeholder={"water bottle, food"} required={false}/>
                     <button onClick={handleDeleteButton}>Delete</button>
-                    <br />
+                    <br/>
                     <button type="submit">
                         Update
                     </button>

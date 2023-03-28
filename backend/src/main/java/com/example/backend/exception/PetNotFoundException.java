@@ -1,10 +1,9 @@
 package com.example.backend.exception;
 
-public class PetNotFoundException extends RuntimeException {
-    public PetNotFoundException(){
+import lombok.NoArgsConstructor;
 
-        super("Current Pet not found");
-    }
+@NoArgsConstructor
+public class PetNotFoundException extends RuntimeException {
 
     public PetNotFoundException(String message) {
 
