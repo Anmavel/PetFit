@@ -6,6 +6,7 @@ import PetGallery from "./component/PetGallery";
 import usePets from "./hooks/usePets"
 import AddPet from "./page/AddPet";
 import PetDetails from "./page/PetDetails";
+import UpdatePet from "./page/UpdatePet";
 
 function App() {
     const {pets, postNewPet,updatePet,deletePet} = usePets();
@@ -16,8 +17,9 @@ function App() {
             <Routes>
                 <Route path={"/"} element={<PetGallery pets={pets} navigateTo={"/pets/add"}/>}/>
                 <Route path={"/pets"} element={<PetGallery pets={pets} navigateTo={"/pets/add"}/>}/>
-                <Route path={"/pets/add"} element={<AddPet navigateTo={"/pets/"} onSubmit={postNewPet}/>}/>
-                <Route path={"/pets/:id"} element={<PetDetails pets={pets} deletePet={deletePet} updatePet={updatePet}/>}/>
+                <Route path={"/pets/add"} element={<AddPet  onAdd={postNewPet}/>}/>
+                <Route path={"/pets/:id"} element={<PetDetails pets={pets} deletePet={deletePet}/>}/>
+                <Route path={"/pets/:id/update"} element={<UpdatePet onUpdate={updatePet} pets={pets}/>} />
 
             </Routes>
             <Footer/>

@@ -7,7 +7,7 @@ import "../page/PetDetails.css"
 type PetDetailsProps = {
     pets: Pet[]
     deletePet: (id: string) => Promise<void>
-    updatePet: (updatedPet: Pet) => Promise<void>
+
 }
 
 export default function PetDetails(props: PetDetailsProps) {
@@ -15,7 +15,6 @@ export default function PetDetails(props: PetDetailsProps) {
     const params = useParams()
     const id = params.id
     const navigate = useNavigate()
-
 
 
     useEffect(() => {
@@ -37,44 +36,23 @@ export default function PetDetails(props: PetDetailsProps) {
     }
 
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const name=e.target.name
-        const value=e.target.value
-        setPet({...pet, [name]:value });
-
-    };
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        props.updatePet(pet)
-            .then(() => { setPet(pet)})
-    };
+    function handleEdit() {
+        navigate("/pets/" + id + "/update")
+    }
 
     return (
         <Layout>
-            <h2>Pet details</h2>
-            <form onSubmit={handleSubmit} className={"add-pet"}>
-                <label>
-                    <h2>Please register your new pet</h2>
-                </label>
-                <div className={"form-add"}>
-                    <input type={"text"} onChange={handleChange} name="name" value={pet.name} required={true}/>
-                    <input type={"text"} onChange={handleChange} name="nameOfBreed" value={pet.nameOfBreed}
-                           placeholder={"breed"} required={false}/>
-                    <input type={"text"} onChange={handleChange} name="photo" value={pet.photo} placeholder={"photo"}
-                           required={false}/>
-                    <button onClick={handleDeleteButton}>Delete</button>
-                    <br/>
-                    <button type="submit">
-                        Update
-                    </button>
-
-                </div>
-
-            </form>
+            <h2>{pet.name} details</h2>
+            <div className={"pet-details"}>
+                {pet.name}<br/>
+                {pet.nameOfBreed}<br/>
+                {pet.photo}<br/>
+                {pet.supplies}<br/>
+                <button onClick={handleDeleteButton}>Delete</button>
+                <button onClick={handleEdit}>Edit</button>
+            </div>
             <Link to={"/pets/"}>back to gallery</Link>
         </Layout>
-    )
-
+)
 
 }

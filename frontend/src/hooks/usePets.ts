@@ -27,7 +27,7 @@ export default function usePets() {
     }
 
     function updatePet(petToUpdate: Pet) {
-        return axios.put("/api/pets/" + petToUpdate.id, petToUpdate)
+        return axios.put("/api/pets/" + petToUpdate, petToUpdate)
             .then(response => {
                 setPets(prevState => {
                         return prevState.map(currentPet => {
