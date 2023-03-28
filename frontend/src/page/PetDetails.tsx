@@ -16,6 +16,8 @@ export default function PetDetails(props: PetDetailsProps) {
     const id = params.id
     const navigate = useNavigate()
 
+
+
     useEffect(() => {
             const filteredPet = props.pets.find(pet => pet.id === id);
             if (filteredPet) {
@@ -61,8 +63,6 @@ export default function PetDetails(props: PetDetailsProps) {
                            placeholder={"breed"} required={false}/>
                     <input type={"text"} onChange={handleChange} name="photo" value={pet.photo} placeholder={"photo"}
                            required={false}/>
-                    <input type={"text"} onChange={handleChange} name="supplies" value={pet.supplies}
-                           placeholder={"water bottle, food"} required={false}/>
                     <button onClick={handleDeleteButton}>Delete</button>
                     <br/>
                     <button type="submit">
