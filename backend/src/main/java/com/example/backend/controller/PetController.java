@@ -27,7 +27,7 @@ public class PetController {
         return petService.updatePet(id,pet);
     }
     @DeleteMapping("{id}")
-    public List<Pet> deleteTaskById(@PathVariable String id) {
+    public Pet deleteTaskById(@PathVariable String id) {
         return petService.deletePet(id);
     }
 

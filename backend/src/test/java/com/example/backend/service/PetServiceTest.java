@@ -170,12 +170,12 @@ class PetServiceTest {
     }
 
     @Test
-    void when_deletePet_and_PetExists_then_ThrowException() {
+    void when_deletePet_and_PetExists_then_ReturnPet() {
         //GIVEN
         when(petRepo.findById(pet1.id())).thenReturn(Optional.ofNullable(pet1));
         //WHEN
-        List<Pet> expected = new ArrayList<>();
-        List<Pet> actual = petService.deletePet(pet1.id());
+        Pet expected = pet1;
+        Pet actual = petService.deletePet(pet1.id());
         //THEN
         assertEquals(expected, actual);
         verify(petRepo).findById(pet1.id());

@@ -39,13 +39,13 @@ public class PetService {
         return petRepo.save(updatedPet);
     }
 
-    public List<Pet> deletePet(String id) {
+    public Pet deletePet(String id) {
         Optional<Pet> optionalPet =petRepo.findById(id);
         if (optionalPet.isEmpty()){
             throw new PetNotFoundException("Pet with id"+ id+ "doesn't exist");
         }
         petRepo.deleteById(id);
-        return getAllPets();
+        return optionalPet.get();
         }
 
 
