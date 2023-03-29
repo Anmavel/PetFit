@@ -18,6 +18,10 @@ public class PetController {
     public Pet addPet(@RequestBody PetDTO pet){
         return petService.addPet(pet);
     }
+    @PutMapping("{id}")
+    public Pet updatePet(@PathVariable String id, @RequestBody PetDTO pet){
+        return petService.updatePet(id,pet);
+    }
     @DeleteMapping("{id}")
     public List<Pet> deleteTaskById(@PathVariable String id) {
         return petService.deletePet(id);

@@ -7,6 +7,7 @@ import "../page/PetDetails.css"
 type PetDetailsProps = {
     pets: Pet[]
     deletePet: (id: string) => Promise<void>
+
 }
 
 export default function PetDetails(props: PetDetailsProps) {
@@ -14,6 +15,7 @@ export default function PetDetails(props: PetDetailsProps) {
     const params = useParams()
     const id = params.id
     const navigate = useNavigate()
+
 
     useEffect(() => {
             const filteredPet = props.pets.find(pet => pet.id === id);
@@ -33,19 +35,24 @@ export default function PetDetails(props: PetDetailsProps) {
             .catch(console.error)
     }
 
+
+    function handleEdit() {
+        navigate("/pets/" + id + "/update")
+    }
+
     return (
         <Layout>
-            <h2>Pet details</h2>
+            <h2>{pet.name} details</h2>
             <div className={"pet-details"}>
-                <div>{pet.name}</div>
-                <div>{pet.nameOfBreed}</div>
-                <div>{pet.photo}<br/></div>
-                <div>{pet.supplies}<br/></div>
+                {pet.name}<br/>
+                {pet.nameOfBreed}<br/>
+                {pet.photo}<br/>
+                {pet.supplies}<br/>
                 <button onClick={handleDeleteButton}>Delete</button>
+                <button onClick={handleEdit}>Edit</button>
             </div>
             <Link to={"/pets/"}>back to gallery</Link>
         </Layout>
-    )
-
+)
 
 }
