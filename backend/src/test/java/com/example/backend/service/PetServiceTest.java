@@ -130,10 +130,10 @@ class PetServiceTest {
     @Test
     void when_updatePet_and_IdDoesntExist_then_throwException() {
         //GIVEN
-        when(petRepo.existsById(pet1.id())).thenReturn(false);
         when(petRepo.findById(pet1.id())).thenReturn(Optional.empty());
         //WHEN & THEN
-        assertThrows(PetNotFoundException.class, () -> petService.updatePet(pet1.id(), pet1DTO));
+        String petId=pet1.id();
+        assertThrows(PetNotFoundException.class, () -> petService.updatePet(petId, pet1DTO));
         verify(petRepo).findById(pet1.id());
     }
 
