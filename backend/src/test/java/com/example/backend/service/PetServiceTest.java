@@ -114,6 +114,28 @@ class PetServiceTest {
     }
 
     @Test
+    void when_getPetById_then_OK(){
+        // GIVEN
+        String petId=pet1.id();
+        when(petRepo.findById(petId)).thenReturn(Optional.of(pet1));
+        //WHEN
+        Pet actual=petService.getPetById(petId);
+        Pet expected =pet1;
+        //THEN
+        verify(petRepo).findById(petId);
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    void when_getPetById_and_IdDoesntExist_then_ThrowException(){
+        // GIVEN
+        when(petRepo.findById("80")).thenReturn(Optional.empty());
+        //WHEN & THEN
+        assertThrows(PetNotFoundException.class, () -> petService.getPetById("80"));
+        verify(petRepo).findById("80");
+    }
+
+    @Test
     void when_updatePet_then_OK() {
         //GIVEN
         when(petRepo.save(pet1)).thenReturn(pet1);
@@ -148,12 +170,12 @@ class PetServiceTest {
     }
 
     @Test
-    void when_deletePet_and_PetExists_then_ThrowException() {
+    void when_deletePet_and_PetExists_then_ReturnPet() {
         //GIVEN
         when(petRepo.findById(pet1.id())).thenReturn(Optional.ofNullable(pet1));
         //WHEN
-        List<Pet> expected = new ArrayList<>();
-        List<Pet> actual = petService.deletePet(pet1.id());
+        Pet expected = pet1;
+        Pet actual = petService.deletePet(pet1.id());
         //THEN
         assertEquals(expected, actual);
         verify(petRepo).findById(pet1.id());

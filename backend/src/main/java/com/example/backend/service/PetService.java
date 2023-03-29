@@ -27,6 +27,9 @@ public class PetService {
         return petRepo.save(newPetWithId);
 
     }
+    public Pet getPetById(String id){
+        return petRepo.findById(id).orElseThrow(PetNotFoundException::new);
+    }
     public Pet updatePet(String id, PetDTO pet) {
         Optional<Pet> optionalPet =petRepo.findById(id);
         if(optionalPet.isEmpty()){
@@ -36,13 +39,13 @@ public class PetService {
         return petRepo.save(updatedPet);
     }
 
-    public List<Pet> deletePet(String id) {
+    public Pet deletePet(String id) {
         Optional<Pet> optionalPet =petRepo.findById(id);
         if (optionalPet.isEmpty()){
             throw new PetNotFoundException("Pet with id"+ id+ "doesn't exist");
         }
         petRepo.deleteById(id);
-        return petRepo.findAll();
+        return optionalPet.get();
         }
 
 

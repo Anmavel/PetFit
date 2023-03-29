@@ -49,13 +49,20 @@ class PetControllerTest {
     void when_addPet_then_OK() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
                         .contentType(MediaType.APPLICATION_JSON).content("""               
-                                {"id": null, "name": "Whiskers","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage"] }
+                                {"id": null,
+                                "name": "Whiskers",
+                                "nameOfBreed":"albino",
+                                "photo":"albino.png",
+                                "supplies": ["Water Bottle","Roomy Cage"] }
                                     """)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """                        
-                                {"name": "Whiskers","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage"]}
+                                {"name": "Whiskers",
+                                "nameOfBreed":"albino",
+                                "photo":"albino.png",
+                                "supplies": ["Water Bottle","Roomy Cage"]}
                                     """
                 )).andExpect(jsonPath("$.id").isNotEmpty());
     }
@@ -65,11 +72,37 @@ class PetControllerTest {
     void when_addPet_with_NotValidName_then_BadRequest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
                         .contentType(MediaType.APPLICATION_JSON).content("""               
-                                {"name":"","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage"] }
+                                {"name":"",
+                                "nameOfBreed":"albino",
+                                "photo":"albino.png",
+                                "supplies": ["Water Bottle","Roomy Cage"]}
                                     """))
                 .andExpect(status().isBadRequest());
 
     }
+
+    @Test
+    @DirtiesContext
+    void when_getPetById_then_OK() throws Exception {
+        petRepo.save(pet1);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/pets/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {"id":"1",
+                        "name":"Whiskers",
+                        "nameOfBreed":"albino",
+                        "photo":"albino.png",
+                        "supplies": ["Water Bottle","Roomy Cage"]}
+                        """));
+    }
+
+    @Test
+    @DirtiesContext
+    void when_getPetById_and_IdDoesntExist_then_Status404() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/pets/100"))
+                .andExpect(status().isNotFound());
+    }
+
 
     @Test
     @DirtiesContext
@@ -78,15 +111,22 @@ class PetControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.put("/api/pets/1")
                         .contentType(MediaType.APPLICATION_JSON).
                         content(""" 
-                                {"id": "1","name": "Whiskers","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage", "Food"] }
+                                {"id": "1",
+                                "name": "Whiskers",
+                                "nameOfBreed":"albino",
+                                "photo":"albino.png",
+                                "supplies": ["Water Bottle","Roomy Cage", "Food"] }
                                                
                                 """))
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """
-                                  {"id": "1","name": "Whiskers","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage", "Food"] }
+                                  {"id": "1",
+                                  "name": "Whiskers",
+                                  "nameOfBreed":"albino",
+                                  "photo":"albino.png",
+                                  "supplies": ["Water Bottle","Roomy Cage", "Food"] }
                                 """));
-
 
     }
 
@@ -96,9 +136,14 @@ class PetControllerTest {
         petRepo.save(pet1);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/pets/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("[]"));
+                .andExpect(content().json("""
+                        {"id":"1",
+                        "name": "Whiskers",
+                        "nameOfBreed":"albino",
+                        "photo":"albino.png",
+                        "supplies": ["Water Bottle","Roomy Cage"]}
+                        """));
 
     }
-
 
 }
