@@ -65,11 +65,30 @@ class PetControllerTest {
     void when_addPet_with_NotValidName_then_BadRequest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
                         .contentType(MediaType.APPLICATION_JSON).content("""               
-                                {"name":"","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage"] }
+                                {"name":"","nameOfBreed":"albino","photo":"albino.png","supplies": ["Water Bottle","Roomy Cage"]}
                                     """))
                 .andExpect(status().isBadRequest());
 
     }
+
+    @Test
+    @DirtiesContext
+    void when_getPetById_then_OK() throws Exception {
+        petRepo.save(pet1);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/pets/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {"id":"1","name":"Whiskers","nameOfBreed":"albino", "photo":"albino.png","supplies": ["Water Bottle","Roomy Cage"]}          
+                        """));
+    }
+
+    @Test
+    @DirtiesContext
+    void when_getPetById_and_IdDoesntExist_then_Status404() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/pets/100"))
+                .andExpect(status().isNotFound());
+    }
+
 
     @Test
     @DirtiesContext

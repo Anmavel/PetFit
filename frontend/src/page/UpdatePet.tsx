@@ -3,6 +3,7 @@ import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import Layout from "../component/Layout";
 import SubmitForm from "../component/SubmitForm";
+import axios from "axios";
 
 
 type Props = {
@@ -19,6 +20,11 @@ export default function UpdateTask(props: Props) {
         const filteredPet = props.pets.find(pet => pet.id === petId);
         if (filteredPet) {
             setPet(filteredPet);
+        }else {
+            axios.get("/api/pets/" + petId)
+                .then(response => response.data)
+                .then(setPet)
+                .catch(console.error);
         }
     }, [petId, props.pets]);
 
@@ -31,7 +37,7 @@ export default function UpdateTask(props: Props) {
     return (
         <Layout>
             <h2>Update your Pet</h2>
-            <SubmitForm onSubmit={props.onUpdate}  navigateTo={"/pets/"} action={"update"} pet={pet}/>
+            <SubmitForm onSubmit={props.onUpdate}  navigateTo={"/pets"} action={"update"} pet={pet}/>
             <Link to={"/pets/"}>back to gallery</Link>
         </Layout>
     )
