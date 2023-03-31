@@ -23,7 +23,7 @@ public class PetService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pet name is missing or empty");
         }
         String id = idService.generateId();
-        Pet newPetWithId = new Pet(id,newPet.name(),newPet.nameOfBreed(), newPet.photo(),newPet.suppliesId());
+        Pet newPetWithId = new Pet(id,newPet.name(),newPet.nameOfBreed(), newPet.photo(),newPet.supplies());
         return petRepo.save(newPetWithId);
 
     }
@@ -35,7 +35,7 @@ public class PetService {
         if(optionalPet.isEmpty()){
             throw new PetNotFoundException("Pet with Id: " +id + " doesn't exist");
         }
-        Pet updatedPet=new Pet(id, pet.name(),pet.nameOfBreed(), pet.photo(), pet.suppliesId());
+        Pet updatedPet=new Pet(id, pet.name(),pet.nameOfBreed(), pet.photo(), pet.supplies());
         return petRepo.save(updatedPet);
     }
 
