@@ -15,7 +15,7 @@ export default function AddPet(props: AddPetProps) {
     const [name, setName] = useState<string>(props.pet.name)
     const [nameOfBreed, setNameOfBreed] = useState<string>(props.pet.nameOfBreed)
     const [photo, setPhoto] = useState<string>(props.pet.photo)
-    const [supplies, setSupplies] = useState<Array<string>>(props.pet.supplies)
+    //const [supplies, setSupplies] = useState<Array<string>>(props.pet.supplies)
     const navigate = useNavigate()
 
     function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
@@ -23,18 +23,18 @@ export default function AddPet(props: AddPetProps) {
     }  function handleBreedChange(event: ChangeEvent<HTMLInputElement>) {
         setNameOfBreed(event.target.value)
     }
-    function handleSuppliesChange(event: ChangeEvent<HTMLInputElement>) {
-        const suppliesArray=event.target.value.split(",")
-        setSupplies(suppliesArray)
-    }
+    //function handleSuppliesChange(event: ChangeEvent<HTMLInputElement>) {
+        //const suppliesArray=event.target.value.split(",")
+       // setSupplies(suppliesArray)
+    //}
     function handlePhotoChange(event: ChangeEvent<HTMLInputElement>) {
         setPhoto(event.target.value)
     }
 
-
     function formSubmitHandler(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        const newPet: Pet = {name, nameOfBreed, photo, supplies}
+        const suppliesId=props.pet.suppliesId
+        const newPet: Pet = {name, nameOfBreed, photo, suppliesId}
         if(props.pet.id){
             newPet.id=props.pet.id
         }
@@ -43,7 +43,8 @@ export default function AddPet(props: AddPetProps) {
                 setName("")
                 setNameOfBreed("")
                 setPhoto("")
-                setSupplies([])
+               // setSupplies([])
+                //<input type={"text"} onChange={handleSuppliesChange} value={supplies} placeholder={"water bottle, food"} required={false}/>
                 if (props.navigateTo) {
                     navigate(props.navigateTo)
                 }
@@ -57,7 +58,6 @@ export default function AddPet(props: AddPetProps) {
                     <input type={"text"} onChange={handleNameChange} value={name} placeholder={"write the name of your Pet"} required={true}/>
                     <input type={"text"} onChange={handleBreedChange} value={nameOfBreed} placeholder={"breed"} required={false}/>
                     <input type={"text"} onChange={handlePhotoChange} value={photo} placeholder={"photo"} required={false}/>
-                    <input type={"text"} onChange={handleSuppliesChange} value={supplies} placeholder={"water bottle, food"} required={false}/>
                     <button type={"submit"}>
                         {props.action === "add" && "Save"}
                         {props.action === "update" && "Update"}

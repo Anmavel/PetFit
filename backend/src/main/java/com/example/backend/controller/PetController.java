@@ -31,6 +31,4 @@ public class PetController {
         return petService.deletePet(id);
     }
 
-
-
 }

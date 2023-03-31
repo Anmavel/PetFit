@@ -3,5 +3,5 @@ export type  Pet={
     name:string,
     nameOfBreed:string,
     photo:string,
-    supplies:Array<string>
+    suppliesId:string
 }

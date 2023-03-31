@@ -31,8 +31,8 @@ class PetControllerTest {
 
     @BeforeEach
     void setUp() {
-        List<String> supplies = new ArrayList<>(List.of("Water Bottle", "Roomy Cage"));
-        pet1 = new Pet("1", "Whiskers", "albino", "albino.png", supplies);
+
+        pet1 = new Pet("1", "Whiskers", "albino", "albino.png", "supplies");
     }
 
     @Test
@@ -53,7 +53,7 @@ class PetControllerTest {
                                 "name": "Whiskers",
                                 "nameOfBreed":"albino",
                                 "photo":"albino.png",
-                                "supplies": ["Water Bottle","Roomy Cage"] }
+                                "suppliesId": "supplies"}
                                     """)
                 )
                 .andExpect(status().isOk())
@@ -62,7 +62,7 @@ class PetControllerTest {
                                 {"name": "Whiskers",
                                 "nameOfBreed":"albino",
                                 "photo":"albino.png",
-                                "supplies": ["Water Bottle","Roomy Cage"]}
+                                "suppliesId": "supplies"}
                                     """
                 )).andExpect(jsonPath("$.id").isNotEmpty());
     }
@@ -75,7 +75,7 @@ class PetControllerTest {
                                 {"name":"",
                                 "nameOfBreed":"albino",
                                 "photo":"albino.png",
-                                "supplies": ["Water Bottle","Roomy Cage"]}
+                                "suppliesId": "supplies"}
                                     """))
                 .andExpect(status().isBadRequest());
 
@@ -92,7 +92,7 @@ class PetControllerTest {
                         "name":"Whiskers",
                         "nameOfBreed":"albino",
                         "photo":"albino.png",
-                        "supplies": ["Water Bottle","Roomy Cage"]}
+                        "suppliesId": "supplies"}
                         """));
     }
 
@@ -115,17 +115,17 @@ class PetControllerTest {
                                 "name": "Whiskers",
                                 "nameOfBreed":"albino",
                                 "photo":"albino.png",
-                                "supplies": ["Water Bottle","Roomy Cage", "Food"] }
+                                "suppliesId": "supplies"}
                                                
                                 """))
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """
                                   {"id": "1",
-                                  "name": "Whiskers",
-                                  "nameOfBreed":"albino",
-                                  "photo":"albino.png",
-                                  "supplies": ["Water Bottle","Roomy Cage", "Food"] }
+                                "name": "Whiskers",
+                                "nameOfBreed":"albino",
+                                "photo":"albino.png",
+                                "suppliesId": "supplies"}
                                 """));
 
     }
@@ -141,7 +141,7 @@ class PetControllerTest {
                         "name": "Whiskers",
                         "nameOfBreed":"albino",
                         "photo":"albino.png",
-                        "supplies": ["Water Bottle","Roomy Cage"]}
+                        "suppliesId": "supplies"}
                         """));
 
     }
