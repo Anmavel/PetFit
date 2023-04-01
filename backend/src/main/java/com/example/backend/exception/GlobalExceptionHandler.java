@@ -19,7 +19,6 @@ public class GlobalExceptionHandler {
         responseBody.put(MESSAGE, exception.getMessage());
         return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
     }
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String,Object>> handleGeneralException(){
         Map<String,Object>responseBody = new LinkedHashMap<>();
