@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Pet;
+import com.example.backend.model.Supply;
 import com.example.backend.repository.PetRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +32,11 @@ class PetControllerTest {
 
     @BeforeEach
     void setUp() {
-
-        pet1 = new Pet("1", "Whiskers", "albino", "albino.png", "supplies");
+        List<Supply> supplies = new ArrayList<>();
+        supplies.add(new Supply("Item1", false));
+        supplies.add(new Supply("Item2", true));
+        supplies.add(new Supply("Item3", false));
+        pet1 = new Pet("1", "Whiskers", "albino", "albino.png", supplies);
     }
 
     @Test
@@ -53,7 +57,11 @@ class PetControllerTest {
                                 "name": "Whiskers",
                                 "nameOfBreed":"albino",
                                 "photo":"albino.png",
-                                "suppliesId": "supplies"}
+                                "supplies":[
+                                {"nameItem":"Item1","bought":false},
+                                {"nameItem":"Item2","bought":true},
+                                {"nameItem":"Item3","bought":false}
+                                    ]}
                                     """)
                 )
                 .andExpect(status().isOk())
@@ -62,7 +70,11 @@ class PetControllerTest {
                                 {"name": "Whiskers",
                                 "nameOfBreed":"albino",
                                 "photo":"albino.png",
-                                "suppliesId": "supplies"}
+                                "supplies":[
+                                {"nameItem":"Item1","bought":false},
+                                {"nameItem":"Item2","bought":true},
+                                {"nameItem":"Item3","bought":false}
+                                    ]}
                                     """
                 )).andExpect(jsonPath("$.id").isNotEmpty());
     }
@@ -75,7 +87,11 @@ class PetControllerTest {
                                 {"name":"",
                                 "nameOfBreed":"albino",
                                 "photo":"albino.png",
-                                "suppliesId": "supplies"}
+                                "supplies":[
+                                {"nameItem":"Item1","bought":false},
+                                {"nameItem":"Item2","bought":true},
+                                {"nameItem":"Item3","bought":false}
+                                    ]}
                                     """))
                 .andExpect(status().isBadRequest());
 
@@ -92,7 +108,11 @@ class PetControllerTest {
                         "name":"Whiskers",
                         "nameOfBreed":"albino",
                         "photo":"albino.png",
-                        "suppliesId": "supplies"}
+                        "supplies":[
+                        {"nameItem":"Item1","bought":false},
+                        {"nameItem":"Item2","bought":true},
+                        {"nameItem":"Item3","bought":false}
+                            ]}
                         """));
     }
 
@@ -115,17 +135,24 @@ class PetControllerTest {
                                 "name": "Whiskers",
                                 "nameOfBreed":"albino",
                                 "photo":"albino.png",
-                                "suppliesId": "supplies"}
-                                               
+                                "supplies":[
+                                {"nameItem":"Item1","bought":false},
+                                {"nameItem":"Item2","bought":true},
+                                {"nameItem":"Item3","bought":false}
+                                    ]}             
                                 """))
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """
                                   {"id": "1",
-                                "name": "Whiskers",
-                                "nameOfBreed":"albino",
-                                "photo":"albino.png",
-                                "suppliesId": "supplies"}
+                                   "name": "Whiskers",
+                                   "nameOfBreed":"albino",
+                                   "photo":"albino.png",
+                                   "supplies":[
+                                   {"nameItem":"Item1","bought":false},
+                                   {"nameItem":"Item2","bought":true},
+                                   {"nameItem":"Item3","bought":false}
+                                   ]}
                                 """));
 
     }
@@ -141,7 +168,11 @@ class PetControllerTest {
                         "name": "Whiskers",
                         "nameOfBreed":"albino",
                         "photo":"albino.png",
-                        "suppliesId": "supplies"}
+                        "supplies":[
+                        {"nameItem":"Item1","bought":false},
+                        {"nameItem":"Item2","bought":true},
+                        {"nameItem":"Item3","bought":false}
+                            ]}
                         """));
 
     }

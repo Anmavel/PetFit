@@ -84,8 +84,11 @@ export default function AddPet(props: AddPetProps) {
                                 : supply
                         ))}
                     checked={supply.bought}/>
+                    <button type={"button"}>Delete Item</button>
                 </div>)}
+
             <button type={"button"} onClick={()=>setSupplies([...supplies,{nameItem:"",bought:false}])}>Add supply</button>
+
             <button type={"submit"}>
                 {props.action === "add" && "Save"}
                 {props.action === "update" && "Update"}
