@@ -18,9 +18,7 @@ export default function AddPet(props: AddPetProps) {
     const [name, setName] = useState<string>(props.pet.name)
     const [nameOfBreed, setNameOfBreed] = useState<string>(props.pet.nameOfBreed)
     const [photo, setPhoto] = useState<string>(props.pet.photo)
-    const [supplies, setSupplies] = useState<Array<Supply>>(props.pet.supplies.map((supply: Supply) => {
-        return {...supply, key: uuidv4()};
-    }));
+    const [supplies, setSupplies] = useState<Array<Supply>>(props.pet.supplies)
     const navigate = useNavigate()
 
     function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
@@ -67,7 +65,7 @@ export default function AddPet(props: AddPetProps) {
                    required={false}/>
             <input type={"text"} onChange={handlePhotoChange} value={photo} placeholder={"photo"} required={false}/>
             {supplies.map((supply, key) =>
-                <div key={key}>
+                <div key={supply.id}>
                     <input
                         type={"text"}
                         onChange={event => setSupplies(supplies => supplies.map(
@@ -89,7 +87,7 @@ export default function AddPet(props: AddPetProps) {
 
                 </div>)}
 
-            <button type={"button"} onClick={()=>setSupplies([...supplies,{nameItem:"",bought:false}])}>Add supply</button>
+            <button type={"button"} onClick={()=>setSupplies([...supplies,{id:uuidv4(),nameItem:"",bought:false}])}>Add supply</button>
 
             <button type={"submit"}>
                 {props.action === "add" && "Save"}
