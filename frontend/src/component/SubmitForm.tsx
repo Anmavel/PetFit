@@ -33,8 +33,6 @@ export default function AddPet(props: AddPetProps) {
         setPhoto(event.target.value)
     }
 
-
-
     function formSubmitHandler(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
@@ -85,9 +83,19 @@ export default function AddPet(props: AddPetProps) {
                         ))}
                         checked={supply.bought}/>
 
+                    <button
+                        type={"button"}
+                        onClick={(event) =>
+                            setSupplies((supplies) =>
+                                supplies.filter((supply, i) => i !== key)
+                            )
+                        }
+                        >Delete</button>
+
                 </div>)}
 
             <button type={"button"} onClick={()=>setSupplies([...supplies,{id:uuidv4(),nameItem:"",bought:false}])}>Add supply</button>
+
 
             <button type={"submit"}>
                 {props.action === "add" && "Save"}
