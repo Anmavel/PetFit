@@ -1,5 +1,5 @@
 import {Pet} from "../model/Pet";
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import Layout from "../component/Layout";
 import SubmitForm from "../component/SubmitForm";
@@ -36,9 +36,8 @@ export default function UpdateTask(props: Props) {
 
     return (
         <Layout>
-            <h2>Update your Pet</h2>
+            <h2>Update your {pet.name}</h2>
             <SubmitForm onSubmit={props.onUpdate}  navigateTo={"/pets"} action={"update"} pet={pet}/>
-            <Link to={"/pets/"}>back to gallery</Link>
         </Layout>
     )
 }

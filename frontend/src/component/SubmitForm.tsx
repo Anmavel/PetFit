@@ -1,9 +1,9 @@
-import {ChangeEvent, FormEvent, useState} from "react";
+import React, {ChangeEvent, FormEvent, useState} from "react";
 import {Pet} from "../model/Pet";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import "./SubmitForm.css"
 import {Supply} from "../model/Supply";
-import { v4 as uuidv4 } from "uuid";
+import {v4 as uuidv4} from "uuid";
 
 
 type AddPetProps = {
@@ -63,25 +63,27 @@ export default function AddPet(props: AddPetProps) {
                    required={false}/>
             <input type={"text"} onChange={handlePhotoChange} value={photo} placeholder={"photo"} required={false}/>
             {supplies.map((supply, key) =>
-                <div key={supply.id}>
-                    <input
-                        type={"text"}
-                        onChange={event => setSupplies(supplies => supplies.map(
-                            (supply, i) => i === key
-                                ? {...supply, nameItem: event.target.value}
-                                : supply
-                        ))}
-                        value={supply.nameItem}
-                        placeholder={"water bottle, food"}
-                        required={false}/>
-                    <input
-                        type={"checkbox"}
-                        onChange={event => setSupplies(supplies => supplies.map(
-                            (supply, i) => i === key
-                                ? {...supply, bought: !supply.bought}
-                                : supply
-                        ))}
-                        checked={supply.bought}/>
+                <div className={"submit-supply"} key={supply.id}>
+                    <label>
+                        <input
+                            type={"text"}
+                            onChange={event => setSupplies(supplies => supplies.map(
+                                (supply, i) => i === key
+                                    ? {...supply, nameItem: event.target.value}
+                                    : supply
+                            ))}
+                            value={supply.nameItem}
+                            placeholder={"water bottle, food"}
+                            required={false}/></label>
+                    <label>
+                        <input
+                            type={"checkbox"}
+                            onChange={event => setSupplies(supplies => supplies.map(
+                                (supply, i) => i === key
+                                    ? {...supply, bought: !supply.bought}
+                                    : supply
+                            ))}
+                            checked={supply.bought}/></label>
 
                     <button
                         type={"button"}
@@ -90,17 +92,21 @@ export default function AddPet(props: AddPetProps) {
                                 supplies.filter((supply, i) => i !== key)
                             )
                         }
-                        >Delete</button>
+                    >Delete
+                    </button>
 
                 </div>)}
 
-            <button type={"button"} onClick={()=>setSupplies([...supplies,{id:uuidv4(),nameItem:"",bought:false}])}>Add supply</button>
+            <button type={"button"}
+                    onClick={() => setSupplies([...supplies, {id: uuidv4(), nameItem: "", bought: false}])}>Add supply
+            </button>
 
 
             <button type={"submit"}>
                 {props.action === "add" && "Save"}
                 {props.action === "update" && "Update"}
             </button>
+            <Link to={"/pets/"}>back to gallery</Link>
             <h6>Natasya Chen</h6>
         </form>
     )

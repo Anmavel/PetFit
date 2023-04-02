@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 32px;
-    height: 40vh;
+    height: 60vh;
     width: 40vh;
     margin: auto;
     overflow: auto;
@@ -12,6 +12,10 @@
     background: #EBE6E6;
     border: #666666;
 
+}
+
+.form-submit:hover {
+    background-image: url("../../public/natasya-chen.jpg");
 }
 
 .form-submit h2 {
@@ -33,19 +37,27 @@
 }
 
 .form-submit button:hover {
+
     background-color: #57BD96;
     color: white;
 }
-.form-submit input{
+
+.form-submit input {
     width: 90%;
     height: 50px;
     font-size: medium;
     padding: 10px 10px 10px 10px;
 
 }
-.form-submit h6{
+
+.form-submit h6 {
     color: #EBE6E6;
 }
-.form-submit h6:hover{
-    color:black;
+
+.form-submit h6:hover {
+    color: black;
+}
+.submit-supply{
+    background-color: lightgoldenrodyellow;
+    border: 2px solid darksalmon;
 }
