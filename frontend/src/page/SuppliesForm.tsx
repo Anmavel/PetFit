@@ -2,8 +2,10 @@ import React, {FormEvent, useEffect, useState} from "react";
 import {Supply} from "../model/Supply";
 import {Pet} from "../model/Pet";
 import {v4 as uuidv4} from "uuid";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
+import "./SuppliesForm.css"
+import Layout from "../component/Layout";
 
 
 type Props = {
@@ -53,31 +55,30 @@ export default function SuppliesForm(props: Props) {
     }
 
     return (
-        <>
-            <h4>Supplies </h4>
-            <form onSubmit={formSubmitHandler}>
+        <Layout>
+            <form onSubmit={formSubmitHandler} className={"form-submit"}>
+                <h3>Supplies for your {pet.name} </h3>
                 {supplies.map((supply, key) =>
                     <div className={"submit-supply"} key={supply.id}>
-                        <label>
-                            <input
-                                type={"text"}
-                                onChange={event => setSupplies(supplies => supplies.map(
-                                    (supply, i) => i === key
-                                        ? {...supply, nameItem: event.target.value}
-                                        : supply
-                                ))}
-                                value={supply.nameItem}
-                                placeholder={"water bottle, food"}
-                                required={false}/></label>
-                        <label>
-                            <input
-                                type={"checkbox"}
-                                onChange={event => setSupplies(supplies => supplies.map(
-                                    (supply, i) => i === key
-                                        ? {...supply, bought: !supply.bought}
-                                        : supply
-                                ))}
-                                checked={supply.bought}/></label>
+                        <input
+                            type={"text"}
+                            onChange={event => setSupplies(supplies => supplies.map(
+                                (supply, i) => i === key
+                                    ? {...supply, nameItem: event.target.value}
+                                    : supply
+                            ))}
+                            value={supply.nameItem}
+                            placeholder={"water bottle, food"}
+                            required={false}/>
+
+                        <input
+                            type={"checkbox"}
+                            onChange={event => setSupplies(supplies => supplies.map(
+                                (supply, i) => i === key
+                                    ? {...supply, bought: !supply.bought}
+                                    : supply
+                            ))}
+                            checked={supply.bought}/>
 
                         <button
                             type={"button"}
@@ -91,12 +92,17 @@ export default function SuppliesForm(props: Props) {
 
                     </div>
                 )}
-                <button type={"button"}
-                        onClick={() => setSupplies([...supplies, {id: uuidv4(), nameItem: "", bought: false}])}>Add
-                    supply
-                </button>
-                <button>Save Changes</button>
+                <div>
+                    <button type={"button"}
+                            onClick={() =>
+                                setSupplies([...supplies, {id: uuidv4(), nameItem: "", bought: false}])}>
+                        Add supply
+                    </button>
+                    <button>Save Changes</button>
+                    <br/>
+                    <Link to={"/pets/"}>back to gallery</Link>
+                </div>
             </form>
-        </>
+        </Layout>
     )
 }

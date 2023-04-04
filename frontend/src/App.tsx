@@ -23,7 +23,6 @@ function App() {
                 <Route path={"/pets/:id"} element={<PetDetails pets={pets} deletePet={deletePet}/>}/>
                 <Route path={"/pets/:id/update"} element={<UpdatePet onUpdate={updatePet} pets={pets}/>}/>
                 <Route path={"/pets/:id/supplies"} element={<SuppliesForm pets={pets} onUpdate={updatePet}/>}/>
-
             </Routes>
             <Footer/>
         </div>
