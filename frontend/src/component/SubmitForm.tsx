@@ -3,8 +3,6 @@ import {Pet} from "../model/Pet";
 import {Link, useNavigate} from "react-router-dom";
 import "./SubmitForm.css"
 import {Supply} from "../model/Supply";
-import {v4 as uuidv4} from "uuid";
-
 
 type AddPetProps = {
     onSubmit: (pet: Pet) => Promise<void>
@@ -33,6 +31,7 @@ export default function AddPet(props: AddPetProps) {
         setPhoto(event.target.value)
     }
 
+
     function formSubmitHandler(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
@@ -45,7 +44,8 @@ export default function AddPet(props: AddPetProps) {
                 setName("")
                 setNameOfBreed("")
                 setPhoto("")
-                setSupplies([])
+              
+
 
                 if (props.navigateTo) {
                     navigate(props.navigateTo)
@@ -62,45 +62,8 @@ export default function AddPet(props: AddPetProps) {
             <input type={"text"} onChange={handleBreedChange} value={nameOfBreed} placeholder={"breed"}
                    required={false}/>
             <input type={"text"} onChange={handlePhotoChange} value={photo} placeholder={"photo"} required={false}/>
-            {supplies.map((supply, key) =>
-                <div className={"submit-supply"} key={supply.id}>
-                    <label>
-                        <input
-                            type={"text"}
-                            onChange={event => setSupplies(supplies => supplies.map(
-                                (supply, i) => i === key
-                                    ? {...supply, nameItem: event.target.value}
-                                    : supply
-                            ))}
-                            value={supply.nameItem}
-                            placeholder={"water bottle, food"}
-                            required={false}/></label>
-                    <label>
-                        <input
-                            type={"checkbox"}
-                            onChange={event => setSupplies(supplies => supplies.map(
-                                (supply, i) => i === key
-                                    ? {...supply, bought: !supply.bought}
-                                    : supply
-                            ))}
-                            checked={supply.bought}/></label>
 
-                    <button
-                        type={"button"}
-                        onClick={(event) =>
-                            setSupplies((supplies) =>
-                                supplies.filter((supply, i) => i !== key)
-                            )
-                        }
-                    >Delete
-                    </button>
-
-                </div>)}
-
-            <button type={"button"}
-                    onClick={() => setSupplies([...supplies, {id: uuidv4(), nameItem: "", bought: false}])}>Add supply
-            </button>
-
+            <button onClick={()=>navigate("/pets/"+ props.pet.id+"/supplies")}>To supplies</button>
 
             <button type={"submit"}>
                 {props.action === "add" && "Save"}
