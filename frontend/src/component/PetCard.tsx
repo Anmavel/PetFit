@@ -7,7 +7,7 @@ type Props = {
     pet: Pet,
 
 }
-export default function TaskCard(props: Props) {
+export default function PetCard(props: Props) {
     const [imgSrc, setImgSrc] = useState(props.pet.photo);
     return (
         <div className={"petCard"}>

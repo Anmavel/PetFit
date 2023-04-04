@@ -3,6 +3,7 @@ package com.example.backend.service;
 import com.example.backend.exception.PetNotFoundException;
 import com.example.backend.model.Pet;
 import com.example.backend.model.PetDTO;
+import com.example.backend.model.Supply;
 import com.example.backend.repository.PetRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,15 +25,22 @@ class PetServiceTest {
     IdService idService;
     Pet pet1;
     PetDTO pet1DTO;
+    Pet petNoSupplies;
+    PetDTO petNoSuppliesDTO;
 
     @BeforeEach
     void setUp() {
         petRepo = mock(PetRepo.class);
         idService = mock(IdService.class);
         petService = new PetService(petRepo, idService);
-        List<String> supplies = new ArrayList<>(List.of("Water Bottle", "Roomy Cage"));
+        List<Supply> supplies = new ArrayList<>();
+        supplies.add(new Supply("Item1", false));
+        supplies.add(new Supply("Item2", true));
+        supplies.add(new Supply("Item3", false));
         pet1DTO = new PetDTO("Whiskers", "albino", "albino.png", supplies);
         pet1 = new Pet("1", pet1DTO.name(), pet1DTO.nameOfBreed(), pet1DTO.photo(), pet1DTO.supplies());
+        petNoSuppliesDTO = new PetDTO("Whiskers", "albino", "albino.png", emptyList());
+        petNoSupplies = new Pet("1", petNoSuppliesDTO.name(), petNoSuppliesDTO.nameOfBreed(), petNoSuppliesDTO.photo(), petNoSuppliesDTO.supplies());
 
     }
 
@@ -74,42 +82,21 @@ class PetServiceTest {
     }
 
     @Test
-    void when_addPet_with_new_Supplies_then_OK() {
-        // GIVEN
-        when(idService.generateId()).thenReturn("Another Whatever Id");
-        List<String> newSupplies = new ArrayList<>(List.of("food", "Water", "toys"));
-        PetDTO pet2DTO = new PetDTO("Whiskers", "albino", "albino.png", newSupplies);
-        Pet petWithId_and_newSupplies = new Pet("Another Whatever Id", pet1.name(), pet1.nameOfBreed(), pet1.photo(), newSupplies);
-        when(petRepo.save(petWithId_and_newSupplies)).thenReturn(petWithId_and_newSupplies);
-
-        //WHEN
-        Pet expected = petWithId_and_newSupplies;
-        Pet actualPet = petService.addPet(pet2DTO);
-
-        //THEN
-        verify(idService).generateId();
-        verify(petRepo).save(petWithId_and_newSupplies);
-        Assertions.assertEquals(expected, actualPet);
-
-    }
-
-    @Test
     void when_addPet_and_add_Empty_Supplies_then_OK() {
         // GIVEN
         when(idService.generateId()).thenReturn("Another Whatever Id");
-        List<String> noSupplies = new ArrayList<>(emptyList());
-        PetDTO pet2DTO = new PetDTO("Whiskers", "albino", "albino.png", noSupplies);
-        Pet petWithId_and_noSupplies = new Pet("Another Whatever Id", pet1.name(), pet1.nameOfBreed(), pet1.photo(), noSupplies);
+        PetDTO pet2DTO = new PetDTO("Whiskers", "albino", "albino.png", emptyList());
+        Pet petWithId_and_noSupplies = new Pet("Another Whatever Id", petNoSupplies.name(), petNoSupplies.nameOfBreed(), petNoSupplies.photo(), petNoSupplies.supplies());
         when(petRepo.save(petWithId_and_noSupplies)).thenReturn(petWithId_and_noSupplies);
 
         //WHEN
         Pet expected = petWithId_and_noSupplies;
-        Pet actualPet = petService.addPet(pet2DTO);
+        Pet actual = petService.addPet(pet2DTO);
 
         //THEN
         verify(idService).generateId();
         verify(petRepo).save(petWithId_and_noSupplies);
-        Assertions.assertEquals(expected, actualPet);
+        Assertions.assertEquals(expected, actual);
 
     }
 

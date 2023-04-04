@@ -5,6 +5,6 @@ import java.util.List;
 public record PetDTO(String name,
                      String nameOfBreed,
                      String photo,
-                     List<String> supplies) {
+                     List<Supply> supplies) {
 
 }

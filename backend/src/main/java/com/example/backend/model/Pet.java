@@ -1,6 +1,7 @@
 package com.example.backend.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
 
 @Document("pets")
@@ -10,7 +11,6 @@ public record Pet(
         String name,
         String nameOfBreed,
         String photo,
-        List<String> supplies) {
-
+        List<Supply> supplies) {
 
 }

@@ -31,7 +31,7 @@ export default function PetDetails(props: PetDetailsProps) {
 
     function handleDeleteButton() {
         props.deletePet(id || "undefined")
-            .then(() => navigate("/pets/"))
+            .then(() => { window.location.replace("/pets");})
             .catch(console.error)
     }
 
@@ -47,11 +47,10 @@ export default function PetDetails(props: PetDetailsProps) {
                 {pet.name}<br/>
                 {pet.nameOfBreed}<br/>
                 {pet.photo}<br/>
-                {pet.supplies}<br/>
-                <button onClick={handleDeleteButton}>Delete</button>
-                <button onClick={handleEdit}>Edit</button>
+                <button className="button" onClick={handleDeleteButton}>Delete</button>
+                <button className="button button2" onClick={handleEdit}>Edit</button>
+                <Link to={"/pets"}>back to gallery</Link>
             </div>
-            <Link to={"/pets/"}>back to gallery</Link>
         </Layout>
 )
 
