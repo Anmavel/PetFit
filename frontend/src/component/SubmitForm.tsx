@@ -62,45 +62,8 @@ export default function AddPet(props: AddPetProps) {
             <input type={"text"} onChange={handleBreedChange} value={nameOfBreed} placeholder={"breed"}
                    required={false}/>
             <input type={"text"} onChange={handlePhotoChange} value={photo} placeholder={"photo"} required={false}/>
-            {supplies.map((supply, key) =>
-                <div className={"submit-supply"} key={supply.id}>
-                    <label>
-                        <input
-                            type={"text"}
-                            onChange={event => setSupplies(supplies => supplies.map(
-                                (supply, i) => i === key
-                                    ? {...supply, nameItem: event.target.value}
-                                    : supply
-                            ))}
-                            value={supply.nameItem}
-                            placeholder={"water bottle, food"}
-                            required={false}/></label>
-                    <label>
-                        <input
-                            type={"checkbox"}
-                            onChange={event => setSupplies(supplies => supplies.map(
-                                (supply, i) => i === key
-                                    ? {...supply, bought: !supply.bought}
-                                    : supply
-                            ))}
-                            checked={supply.bought}/></label>
 
-                    <button
-                        type={"button"}
-                        onClick={(event) =>
-                            setSupplies((supplies) =>
-                                supplies.filter((supply, i) => i !== key)
-                            )
-                        }
-                    >Delete
-                    </button>
-
-                </div>)}
-
-            <button type={"button"}
-                    onClick={() => setSupplies([...supplies, {id: uuidv4(), nameItem: "", bought: false}])}>Add supply
-            </button>
-
+            <Link to={"/pets/:id/supplies"}>Add or update Supplies</Link>
 
             <button type={"submit"}>
                 {props.action === "add" && "Save"}

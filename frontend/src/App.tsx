@@ -7,6 +7,7 @@ import usePets from "./hooks/usePets"
 import AddPet from "./page/AddPet";
 import PetDetails from "./page/PetDetails";
 import UpdatePet from "./page/UpdatePet";
+import SuppliesDetails from "./page/SuppliesDetails";
 
 function App() {
     const {pets, postNewPet,updatePet,deletePet} = usePets();
@@ -21,7 +22,7 @@ function App() {
                 <Route path={"/pets/add"} element={<AddPet  onAdd={postNewPet}/>}/>
                 <Route path={"/pets/:id"} element={<PetDetails pets={pets} deletePet={deletePet}/>}/>
                 <Route path={"/pets/:id/update"} element={<UpdatePet onUpdate={updatePet} pets={pets}/>} />
-
+                <Route path={"/pets/:id/supplies"} element={<SuppliesDetails pets={pets} onUpdate={updatePet}/>}/>
             </Routes>
             <Footer/>
         </div>
