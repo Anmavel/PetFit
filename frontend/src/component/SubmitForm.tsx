@@ -16,7 +16,7 @@ export default function AddPet(props: AddPetProps) {
     const [name, setName] = useState<string>(props.pet.name)
     const [nameOfBreed, setNameOfBreed] = useState<string>(props.pet.nameOfBreed)
     const [photo, setPhoto] = useState<string>(props.pet.photo)
-    const [supplies, setSupplies] = useState<Array<Supply>>(props.pet.supplies)
+    const [supplies] = useState<Array<Supply>>(props.pet.supplies)
     const navigate = useNavigate()
 
     function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
