@@ -11,6 +11,7 @@ public record Pet(
         String name,
         String nameOfBreed,
         String photo,
-        List<Supply> supplies) {
+        List<Supply> supplies,
+        String userId) {
 
 }

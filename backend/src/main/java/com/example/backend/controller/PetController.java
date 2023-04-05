@@ -5,6 +5,8 @@ import com.example.backend.model.PetDTO;
 import com.example.backend.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -15,20 +17,20 @@ public class PetController {
     @GetMapping
     public List<Pet> getAllPets(){ return petService.getAllPets();}
     @PostMapping
-    public Pet addPet(@RequestBody PetDTO pet){
-        return petService.addPet(pet);
+    public Pet addPet(@RequestBody PetDTO pet, Principal principal){
+        return petService.addPet(pet,principal);
     }
     @GetMapping("{id}")
     public Pet getPetById(@PathVariable String id){
         return petService.getPetById(id);
     }
     @PutMapping("{id}")
-    public Pet updatePet(@PathVariable String id, @RequestBody PetDTO pet){
-        return petService.updatePet(id,pet);
+    public Pet updatePet(@PathVariable String id, @RequestBody PetDTO pet, Principal principal){
+        return petService.updatePet(id,pet,principal);
     }
     @DeleteMapping("{id}")
-    public Pet deleteTaskById(@PathVariable String id) {
-        return petService.deletePet(id);
+    public Pet deleteTaskById(@PathVariable String id,Principal principal) {
+        return petService.deletePet(id,principal);
     }
 
 }
