@@ -105,6 +105,24 @@ class MongoUserDetailsServiceTest {
         Assertions.assertEquals("Password is required", exception.getReason());
     }
 
+    @Test
+    void when_UserAlreadyExist_then_Conflict() {
+        // GIVEN
+        when(passwordEncoder.encode(mongoUser.password())).thenReturn(mongoUser.password());
+        when(idService.generateId()).thenReturn(mongoUser.id());
+        MongoUserRequest mongoUserRequest = new MongoUserRequest(mongoUser.username(), mongoUser.password());
+        when(mongoUserRepository.existsByUsername(mongoUserRequest.username())).thenReturn(true);
+
+        // WHEN
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            mongoUserDetailsService.signup(mongoUserRequest);
+        });
+
+        // THEN
+        Assertions.assertEquals(HttpStatus.CONFLICT, exception.getStatusCode());
+        Assertions.assertEquals("User already exists", exception.getReason());
+    }
+
 
 
 }
