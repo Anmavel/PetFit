@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll().and()
-                .formLogin()
+                .logout()
                 .and().build();
     }
 
