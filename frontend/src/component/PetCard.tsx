@@ -2,9 +2,11 @@ import {Pet} from "../model/Pet";
 import React, {useState} from "react";
 import "./PetCard.css"
 import {Link} from "react-router-dom";
+import {User} from "../model/Users";
 
 type Props = {
     pet: Pet,
+    user: User | undefined
 
 }
 export default function PetCard(props: Props) {
