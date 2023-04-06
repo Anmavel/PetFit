@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import {Pet} from "../model/Pet";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import "./SubmitForm.css"
 import {Supply} from "../model/Supply";
 
@@ -69,7 +69,6 @@ export default function AddPet(props: AddPetProps) {
                 {props.action === "add" && "Save"}
                 {props.action === "update" && "Update"}
             </button>
-            <Link to={"/pets/"}>back to gallery</Link>
             <h6>Natasya Chen</h6>
         </form>
     )
