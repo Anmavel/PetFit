@@ -2,7 +2,7 @@ import React, {FormEvent, useEffect, useState} from "react";
 import {Supply} from "../model/Supply";
 import {Pet} from "../model/Pet";
 import {v4 as uuidv4} from "uuid";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import "./SuppliesForm.css"
 import Layout from "../component/Layout";
@@ -100,7 +100,6 @@ export default function SuppliesForm(props: Props) {
                     </button>
                     <button>Save Changes</button>
                     <br/>
-                    <Link to={"/pets/"}>back to gallery</Link>
                 </div>
             </form>
         </Layout>

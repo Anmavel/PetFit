@@ -1,7 +1,7 @@
 import {Pet} from "../model/Pet";
 import Layout from "../component/Layout";
 import React, {useEffect, useState} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import "../page/PetDetails.css"
 
 type PetDetailsProps = {
@@ -49,7 +49,6 @@ export default function PetDetails(props: PetDetailsProps) {
                 {pet.photo}<br/>
                 <button className="button" onClick={handleDeleteButton}>Delete</button>
                 <button className="button button2" onClick={handleEdit}>Edit</button>
-                <Link to={"/pets"}>back to gallery</Link>
             </div>
         </Layout>
 )

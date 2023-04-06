@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.exception.PetNotFoundException;
+import com.example.backend.model.MongoUserResponse;
 import com.example.backend.model.Pet;
 import com.example.backend.model.PetDTO;
 import com.example.backend.model.Supply;
@@ -8,13 +9,10 @@ import com.example.backend.repository.PetRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.web.server.ResponseStatusException;
-
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -23,6 +21,8 @@ class PetServiceTest {
     PetRepo petRepo;
     PetService petService;
     IdService idService;
+    MongoUserDetailsService mongoUserDetailsService;
+    Principal principal;
     Pet pet1;
     PetDTO pet1DTO;
     Pet petNoSupplies;
@@ -32,15 +32,18 @@ class PetServiceTest {
     void setUp() {
         petRepo = mock(PetRepo.class);
         idService = mock(IdService.class);
-        petService = new PetService(petRepo, idService);
+        mongoUserDetailsService =mock(MongoUserDetailsService.class);
+        principal =mock(Principal.class);
+        petService = new PetService(petRepo, idService, mongoUserDetailsService);
         List<Supply> supplies = new ArrayList<>();
         supplies.add(new Supply("Item1", false));
         supplies.add(new Supply("Item2", true));
         supplies.add(new Supply("Item3", false));
+        List<Supply> noSupplies =new ArrayList<>();
         pet1DTO = new PetDTO("Whiskers", "albino", "albino.png", supplies);
-        pet1 = new Pet("1", pet1DTO.name(), pet1DTO.nameOfBreed(), pet1DTO.photo(), pet1DTO.supplies());
-        petNoSuppliesDTO = new PetDTO("Whiskers", "albino", "albino.png", emptyList());
-        petNoSupplies = new Pet("1", petNoSuppliesDTO.name(), petNoSuppliesDTO.nameOfBreed(), petNoSuppliesDTO.photo(), petNoSuppliesDTO.supplies());
+        pet1 = new Pet("1", pet1DTO.name(), pet1DTO.nameOfBreed(), pet1DTO.photo(), pet1DTO.supplies(),"a");
+        petNoSuppliesDTO = new PetDTO("Whiskers", "albino", "albino.png", noSupplies);
+        petNoSupplies = new Pet("1", petNoSuppliesDTO.name(), petNoSuppliesDTO.nameOfBreed(), petNoSuppliesDTO.photo(), petNoSuppliesDTO.supplies(),"a");
 
     }
 
@@ -61,14 +64,16 @@ class PetServiceTest {
     void when_addPet_then_OK() {
         //GIVEN
         when(idService.generateId()).thenReturn("Whatever Id");
-        Pet petWithId = new Pet("Whatever Id", pet1.name(), pet1.nameOfBreed(), pet1.photo(), pet1.supplies());
+        Pet petWithId = new Pet("Whatever Id", pet1.name(), pet1.nameOfBreed(), pet1.photo(), pet1.supplies(),"a");
         when(petRepo.save(petWithId)).thenReturn(petWithId);
+        when(mongoUserDetailsService.getMe(principal)).thenReturn(new MongoUserResponse("a","",""));
         //WHEN
         Pet expected = petWithId;
-        Pet actualPet = petService.addPet(pet1DTO);
+        Pet actualPet = petService.addPet(pet1DTO,principal);
         //THEN
-        verify(idService).generateId();
         verify(petRepo).save(petWithId);
+        verify(idService).generateId();
+        verify(mongoUserDetailsService).getMe(principal);
         Assertions.assertEquals(expected, actualPet);
     }
 
@@ -78,26 +83,28 @@ class PetServiceTest {
         when(idService.generateId()).thenReturn("Whatever Id");
         PetDTO invalidPet = new PetDTO(null, pet1.nameOfBreed(), pet1.photo(), pet1.supplies());
         //WHEN & THEN
-        assertThrows(ResponseStatusException.class, () -> petService.addPet(invalidPet));
+        assertThrows(IllegalArgumentException.class, () -> petService.addPet(invalidPet,principal));
     }
 
     @Test
     void when_addPet_and_add_Empty_Supplies_then_OK() {
         // GIVEN
-        when(idService.generateId()).thenReturn("Another Whatever Id");
-        PetDTO pet2DTO = new PetDTO("Whiskers", "albino", "albino.png", emptyList());
-        Pet petWithId_and_noSupplies = new Pet("Another Whatever Id", petNoSupplies.name(), petNoSupplies.nameOfBreed(), petNoSupplies.photo(), petNoSupplies.supplies());
+        when(idService.generateId()).thenReturn("1");
+        List<Supply> noSupplies2 =new ArrayList<>();
+        PetDTO petNoSuppliesDTO_pet2 = new PetDTO("Whiskers", "albino", "albino.png", noSupplies2);
+        Pet petWithId_and_noSupplies = new Pet("1", "Whiskers", "albino", "albino.png", petNoSuppliesDTO_pet2.supplies(), "a");
         when(petRepo.save(petWithId_and_noSupplies)).thenReturn(petWithId_and_noSupplies);
+        when(mongoUserDetailsService.getMe(principal)).thenReturn(new MongoUserResponse("a", "", ""));
 
-        //WHEN
-        Pet expected = petWithId_and_noSupplies;
-        Pet actual = petService.addPet(pet2DTO);
+        // WHEN
+        Pet expected = petNoSupplies;
+        Pet actual = petService.addPet(petNoSuppliesDTO_pet2, principal);
 
-        //THEN
+        // THEN
         verify(idService).generateId();
         verify(petRepo).save(petWithId_and_noSupplies);
+        verify(mongoUserDetailsService).getMe(principal);
         Assertions.assertEquals(expected, actual);
-
     }
 
     @Test
@@ -126,12 +133,14 @@ class PetServiceTest {
     void when_updatePet_then_OK() {
         //GIVEN
         when(petRepo.save(pet1)).thenReturn(pet1);
+        when(mongoUserDetailsService.getMe(principal)).thenReturn(new MongoUserResponse("a","",""));
         when(petRepo.findById(pet1.id())).thenReturn(Optional.ofNullable(pet1));
         //WHEN
-        Pet actual = petService.updatePet(pet1.id(), pet1DTO);
+        Pet actual = petService.updatePet(pet1.id(), pet1DTO,principal);
         Pet expected = pet1;
         //THEN
         verify(petRepo).save(pet1);
+        verify(mongoUserDetailsService).getMe(principal);
         verify(petRepo).findById(pet1.id());
         Assertions.assertEquals(expected, actual);
     }
@@ -140,9 +149,11 @@ class PetServiceTest {
     void when_updatePet_and_IdDoesntExist_then_throwException() {
         //GIVEN
         when(petRepo.findById(pet1.id())).thenReturn(Optional.empty());
+        when(mongoUserDetailsService.getMe(principal)).thenReturn(new MongoUserResponse("a","",""));
         //WHEN & THEN
         String petId=pet1.id();
-        assertThrows(PetNotFoundException.class, () -> petService.updatePet(petId, pet1DTO));
+        assertThrows(PetNotFoundException.class, () -> petService.updatePet(petId, pet1DTO,principal));
+        verify(mongoUserDetailsService).getMe(principal);
         verify(petRepo).findById(pet1.id());
     }
 
@@ -150,8 +161,10 @@ class PetServiceTest {
     void when_deletePet_and_PetDoesntExists_then_ThrowException() {
         //GIVEN
         when(petRepo.findById("80")).thenReturn(Optional.empty());
+        when(mongoUserDetailsService.getMe(principal)).thenReturn(new MongoUserResponse("a","",""));
         //WHEN & THEN
-        assertThrows(PetNotFoundException.class, () -> petService.deletePet("80"));
+        assertThrows(PetNotFoundException.class, () -> petService.deletePet("80",principal));
+        verify(mongoUserDetailsService).getMe(principal);
         verify(petRepo).findById("80");
 
     }
@@ -160,11 +173,13 @@ class PetServiceTest {
     void when_deletePet_and_PetExists_then_ReturnPet() {
         //GIVEN
         when(petRepo.findById(pet1.id())).thenReturn(Optional.ofNullable(pet1));
+        when(mongoUserDetailsService.getMe(principal)).thenReturn(new MongoUserResponse("a","",""));
         //WHEN
         Pet expected = pet1;
-        Pet actual = petService.deletePet(pet1.id());
+        Pet actual = petService.deletePet(pet1.id(),principal);
         //THEN
         assertEquals(expected, actual);
+        verify(mongoUserDetailsService).getMe(principal);
         verify(petRepo).findById(pet1.id());
 
     }

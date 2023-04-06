@@ -1,9 +1,11 @@
 import {Pet} from "../model/Pet";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import useAuth from "./useAuth";
 
 export default function usePets() {
     const [pets, setPets] = useState<Pet[]>([]);
+    const user = useAuth()
 
     function loadAllPets() {
         axios.get("/api/pets/")
@@ -53,7 +55,7 @@ export default function usePets() {
 
     useEffect(() => {
         loadAllPets()
-    }, [])
+    }, [user])
 
     return {pets, postNewPet, updatePet, deletePet}
 }

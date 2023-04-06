@@ -1,7 +1,9 @@
 package com.example.backend.controller;
 
+import com.example.backend.model.MongoUser;
 import com.example.backend.model.Pet;
 import com.example.backend.model.Supply;
+import com.example.backend.repository.MongoUserRepository;
 import com.example.backend.repository.PetRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -16,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,6 +33,9 @@ class PetControllerTest {
     @Autowired
     PetRepo petRepo;
     Pet pet1;
+    @Autowired
+    MongoUserRepository mongoUserRepository;
+    MongoUser mongoUser;
 
     @BeforeEach
     void setUp() {
@@ -36,11 +43,13 @@ class PetControllerTest {
         supplies.add(new Supply("Item1", false));
         supplies.add(new Supply("Item2", true));
         supplies.add(new Supply("Item3", false));
-        pet1 = new Pet("1", "Whiskers", "albino", "albino.png", supplies);
+        pet1 = new Pet("1", "Whiskers", "albino", "albino.png", supplies, "a");
+        mongoUser = new MongoUser("a","user","password","BASIC");
     }
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user")
     void when_getAllPets_then_OK() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/pets/"))
                 .andExpect(status().isOk())
@@ -50,7 +59,17 @@ class PetControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user")
     void when_addPet_then_OK() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/users")
+                .contentType(MediaType.APPLICATION_JSON).content("""
+                        {
+                        "username": "user",
+                        "password" : "password"
+                        }
+                        """).with(csrf())
+        ).andExpect(status().isOk());
+
         mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
                         .contentType(MediaType.APPLICATION_JSON).content("""               
                                 {"id": null,
@@ -62,7 +81,7 @@ class PetControllerTest {
                                 {"nameItem":"Item2","bought":true},
                                 {"nameItem":"Item3","bought":false}
                                     ]}
-                                    """)
+                                    """).with(csrf())
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().json(
@@ -81,6 +100,7 @@ class PetControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user")
     void when_addPet_with_NotValidName_then_BadRequest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
                         .contentType(MediaType.APPLICATION_JSON).content("""               
@@ -92,13 +112,15 @@ class PetControllerTest {
                                 {"nameItem":"Item2","bought":true},
                                 {"nameItem":"Item3","bought":false}
                                     ]}
-                                    """))
+                                    """).with(csrf())
+                )
                 .andExpect(status().isBadRequest());
 
     }
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user")
     void when_getPetById_then_OK() throws Exception {
         petRepo.save(pet1);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/pets/1"))
@@ -118,6 +140,7 @@ class PetControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user")
     void when_getPetById_and_IdDoesntExist_then_Status404() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/pets/100"))
                 .andExpect(status().isNotFound());
@@ -126,8 +149,10 @@ class PetControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user")
     void when_updatePet_then_OK() throws Exception {
         petRepo.save(pet1);
+        mongoUserRepository.save(mongoUser);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/pets/1")
                         .contentType(MediaType.APPLICATION_JSON).
                         content(""" 
@@ -139,8 +164,8 @@ class PetControllerTest {
                                 {"nameItem":"Item1","bought":false},
                                 {"nameItem":"Item2","bought":true},
                                 {"nameItem":"Item3","bought":false}
-                                    ]}             
-                                """))
+                                    ]}       
+                                """).with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """
@@ -159,9 +184,12 @@ class PetControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser(username = "user")
     void when_deletePet_and_PetIdExists_then_Return_emptyList() throws Exception {
         petRepo.save(pet1);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/pets/1"))
+        mongoUserRepository.save(mongoUser);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/pets/1")
+                        .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         {"id":"1",

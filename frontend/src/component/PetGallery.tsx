@@ -4,16 +4,18 @@ import Layout from "./Layout";
 import {useNavigate} from "react-router-dom";
 import "../component/PetGallery.css"
 import "../component/ButtonAddGallery.css"
+import useAuth from "../hooks/useAuth";
 
 type PetGalleryProps = {
-    pets: Pet[],
+    pets: Pet[]
 
     navigateTo: string | undefined
 }
 
 export default function PetGallery(props: PetGalleryProps) {
+    const user = useAuth(true)
     const pets = props.pets.map((pet: Pet) => {
-        return <PetCard key={pet.id} pet={pet}/>
+        return <PetCard key={pet.id} pet={pet} user={user}/>
     })
     const navigate = useNavigate()
 
