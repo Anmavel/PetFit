@@ -10,14 +10,17 @@ export default function Navigation() {
     const location = useLocation()
 
     function handleLogOutClick() {
-        axios.post("/api/users/logout").then(() => {
-            window.sessionStorage.setItem(
-                "signInRedirect",
-                location.pathname || "/"
+        axios.post("/api/users/logout").then(res => {
+            if (res.status===200){
+                toast.success("You were successfully logout. Bye 👋");
+                window.sessionStorage.setItem(
+                    "signInRedirect",
+                    location.pathname || "/"
             );
-            window.location.href = "/sign-in";
+            }
         });
-        toast(()=>"You were successfully logout. Bye 👋");
+
+        window.location.href = "/sign-in";
     }
 
     return (
