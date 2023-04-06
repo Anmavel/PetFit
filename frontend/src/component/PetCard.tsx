@@ -11,7 +11,7 @@ type Props = {
 }
 export default function PetCard(props: Props) {
     const [imgSrc, setImgSrc] = useState(props.pet.photo);
-    return (
+    return !props.user? <>''</> :  (
         <div className={"petCard"}>
             <h2>{props.pet.name}</h2>
             <h3>{props.pet.nameOfBreed}</h3>

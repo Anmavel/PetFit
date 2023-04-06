@@ -8,13 +8,13 @@ import useAuth from "../hooks/useAuth";
 
 type PetGalleryProps = {
     pets: Pet[]
-
     navigateTo: string | undefined
 }
 
 export default function PetGallery(props: PetGalleryProps) {
     const user = useAuth(true)
-    const pets = props.pets.map((pet: Pet) => {
+    const filteredPets = props.pets.filter(pet => pet.userId === user?.id);
+    const pets = filteredPets.map((pet: Pet) => {
         return <PetCard key={pet.id} pet={pet} user={user}/>
     })
     const navigate = useNavigate()
@@ -26,7 +26,7 @@ export default function PetGallery(props: PetGalleryProps) {
 
     }
 
-    return (
+    return !user ? <>''</> :  (
         <Layout>
             <>
                 <h2>All pets</h2>

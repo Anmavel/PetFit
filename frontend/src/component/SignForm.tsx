@@ -11,6 +11,7 @@ type Props = {
 export default function SignForm(props: Props) {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [formError, setFormError] = useState<string>("");
     const navigate = useNavigate();
 
     function handleUsernameChange(event: ChangeEvent<HTMLInputElement>) {
@@ -23,10 +24,10 @@ export default function SignForm(props: Props) {
 
     function formSubmitHandler(event: FormEvent<HTMLFormElement>) {
         const btoaString = `${username}:${password}`
-        const url = "/api/users"
-        const data = props.action === "sign-up" ?{username, password}:{}
-        const config = props.action === "sign-up" ?{} :{headers: {Authorization: `Basic ${window.btoa(btoaString)}`}}
-        const navigateTo = "/pets";
+        const url = "/api/users" + (props.action === "sign-in" ? "/login" : "")
+        const data = props.action === "sign-in" ? {} : {username, password}
+        const config = props.action === "sign-in" ? {headers: {Authorization: `Basic ${window.btoa(btoaString)}`}} : {}
+        const navigateTo = props.action === "sign-in" ? window.sessionStorage.getItem('signInRedirect') || '/' : "/";
         event.preventDefault();
         axios.post(url, data, config)
             .then(() => {
@@ -36,12 +37,24 @@ export default function SignForm(props: Props) {
                 navigate(navigateTo);
             }).catch(err => {
             console.error(err);
-            toast(" ❌ Error: missing Name or Password or user already exists ")
+            setFormError(err.response.data.error || err.response.data.message);
+            switch(formError) {
+                case "Unauthorized":
+                    toast(" ❌ Error: please Sign Up ");
+                    navigate("/sign-up");
+                    break;
+                case "Bad request":
+                    toast(" ❌ Error: missing Name or Password");
+                    break;
+                default:
+                break;
+            }
         });
     }
 
     return (
         <form className={"signup-form"} onSubmit={formSubmitHandler}>
+            {formError && <div className={"form-error"}>Error: {formError}</div>}
             <div>
                 <label>
                     Username<br/>
@@ -67,6 +80,7 @@ export default function SignForm(props: Props) {
             </div>
 
             <button type="submit">
+                {props.action === "sign-in" && "Sign In"}
                 {props.action === "sign-up" && "Sign Up"}
             </button>
         </form>

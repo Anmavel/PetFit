@@ -58,6 +58,7 @@ export default function SuppliesForm(props: Props) {
         <Layout>
             <form onSubmit={formSubmitHandler} className={"form-submit"}>
                 <h3>Supplies for your {pet.name} </h3>
+                <h4>You can add, put a tick or delete supplies here: </h4>
                 {supplies.map((supply, key) =>
                     <div className={"submit-supply"} key={supply.id}>
                         <input
