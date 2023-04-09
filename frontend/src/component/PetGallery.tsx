@@ -13,8 +13,7 @@ type PetGalleryProps = {
 
 export default function PetGallery(props: PetGalleryProps) {
     const user = useAuth(true)
-    const filteredPets = props.pets.filter(pet => pet.userId === user?.id);
-    const pets = filteredPets.map((pet: Pet) => {
+    const pets = props.pets.map((pet: Pet) => {
         return <PetCard key={pet.id} pet={pet} user={user}/>
     })
     const navigate = useNavigate()

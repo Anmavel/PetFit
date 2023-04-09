@@ -34,6 +34,9 @@ export default function SignForm(props: Props) {
                 if (props.action==="sign-up"){
                     toast(" 🎉 you were successfully registered")
                 }
+                else{
+                    navigate("/" );
+                }
                 navigate(navigateTo);
             }).catch(err => {
             console.error(err);

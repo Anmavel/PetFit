@@ -50,12 +50,13 @@ class PetServiceTest {
     @Test
     void when_getAllPets_then_OK() {
         //GIVEN
-        when(petRepo.findAll()).thenReturn(new ArrayList<>());
+        when(mongoUserDetailsService.getMe(principal)).thenReturn(new MongoUserResponse("123", "user","BASIC"));
+        when(petRepo.findPetByUserId("123")).thenReturn(new ArrayList<>());
         //WHEN
-        List<Pet> actual = petService.getAllPets();
+        List<Pet> actual = petService.getAllPets(principal);
         List<Pet> expected = new ArrayList<>();
         //THEN
-        verify(petRepo).findAll();
+        verify(petRepo).findPetByUserId("123");
         Assertions.assertEquals(expected, actual);
 
     }

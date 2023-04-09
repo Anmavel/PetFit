@@ -15,7 +15,7 @@ import java.util.List;
 public class PetController {
     private final PetService petService;
     @GetMapping
-    public List<Pet> getAllPets(){ return petService.getAllPets();}
+    public List<Pet> getAllPets(Principal principal){ return petService.getAllPets(principal);}
     @PostMapping
     public Pet addPet(@RequestBody PetDTO pet, Principal principal){
         return petService.addPet(pet,principal);

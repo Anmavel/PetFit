@@ -4,14 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-
 import java.util.Map;
 
 class GlobalExceptionHandlerTest {
 
     @Test
-    @ExceptionHandler(UnauthorizedException.class)
     void testHandleUnauthorizedException() {
 
         String errorMessage = "You are not authorized to access this pet!";
