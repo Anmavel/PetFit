@@ -51,6 +51,14 @@ class PetControllerTest {
     @DirtiesContext
     @WithMockUser(username = "user")
     void when_getAllPets_then_OK() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/users")
+                .contentType(MediaType.APPLICATION_JSON).content("""
+                        {
+                        "username": "user",
+                        "password" : "password"
+                        }
+                        """).with(csrf())
+        ).andExpect(status().isOk());
         mockMvc.perform(MockMvcRequestBuilders.get("/api/pets/"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
@@ -164,7 +172,7 @@ class PetControllerTest {
                                 {"nameItem":"Item1","bought":false},
                                 {"nameItem":"Item2","bought":true},
                                 {"nameItem":"Item3","bought":false}
-                                    ]}       
+                                    ]}      
                                 """).with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(

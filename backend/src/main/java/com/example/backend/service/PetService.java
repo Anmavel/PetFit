@@ -17,7 +17,7 @@ public class PetService {
     private final PetRepo petRepo;
     private final IdService idService;
     private final MongoUserDetailsService mongoUserDetailsService;
-    public List<Pet> getAllPets(){ return petRepo.findAll();}
+    public List<Pet> getAllPets(Principal principal){ return petRepo.findPetByUserId(mongoUserDetailsService.getMe(principal).id());}
 
     public Pet addPet(PetDTO newPet, Principal principal){
         if(newPet.name()==null || newPet.name().equals("")){

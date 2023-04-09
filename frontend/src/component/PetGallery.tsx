@@ -8,7 +8,6 @@ import useAuth from "../hooks/useAuth";
 
 type PetGalleryProps = {
     pets: Pet[]
-
     navigateTo: string | undefined
 }
 
@@ -26,7 +25,7 @@ export default function PetGallery(props: PetGalleryProps) {
 
     }
 
-    return (
+    return !user ? <>''</> :  (
         <Layout>
             <>
                 <h2>All pets</h2>

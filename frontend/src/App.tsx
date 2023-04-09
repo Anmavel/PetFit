@@ -13,6 +13,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import SignInPage from "./page/SignInPage";
 
 axios.interceptors.request.use(function (config) {
     return fetch("/api/csrf").then(() => {
@@ -32,6 +33,7 @@ function App() {
             <Routes>
                 <Route path={"/"} element={<PetGallery pets={pets} navigateTo={"/pets/add"}/>}/>
                 <Route path={"/sign-up"} element={<SignUpPage/>}/>
+                <Route path={"/sign-in"} element={<SignInPage/>}/>
                 <Route path={"/pets"} element={<PetGallery pets={pets} navigateTo={"/pets/add"}/>}/>
                 <Route path={"/pets/add"} element={<AddPet  onAdd={postNewPet}/>}/>
                 <Route path={"/pets/:id"} element={<PetDetails pets={pets} deletePet={deletePet}/>}/>

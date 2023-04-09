@@ -17,9 +17,17 @@ public class MongoUserController {
     public MongoUserResponse signup(@RequestBody MongoUserRequest user) {
         return mongoUserDetailsService.signup(user);
     }
+    @PostMapping("/login")
+    public MongoUserResponse login(Principal principal) {
+        return getMe(principal);
+    }
     @GetMapping("/me")
     public MongoUserResponse getMe(Principal principal) {
         return mongoUserDetailsService.getMe(principal);
+    }
+    @PostMapping("/logout")
+    public void logout() {
+        // this method exists only to define the endpoint!
     }
 
 }

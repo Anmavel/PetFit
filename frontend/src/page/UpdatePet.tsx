@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import Layout from "../component/Layout";
 import SubmitForm from "../component/SubmitForm";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 
 type Props = {
@@ -15,6 +16,7 @@ export default function UpdateTask(props: Props) {
     const params = useParams();
     const petId: string | undefined = params.id;
     const [pet, setPet] = useState<Pet | undefined>();
+    const user = useAuth(true)
 
     useEffect(() => {
         const filteredPet = props.pets.find(pet => pet.id === petId);
@@ -34,7 +36,7 @@ export default function UpdateTask(props: Props) {
         )
     }
 
-    return (
+    return !user ? null : (
         <Layout>
             <h2>Update your {pet.name}</h2>
             <SubmitForm onSubmit={props.onUpdate}  navigateTo={"/pets"} action={"update"} pet={pet}/>
