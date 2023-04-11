@@ -3,7 +3,7 @@
     flex-flow: column;
     align-items: center;
     justify-content: space-between;
-    gap: 32px;
+    gap: 20px;
     height: 40vh;
     width: 40vh;
     margin: auto;
@@ -16,12 +16,17 @@
 
 
 }
+.pet-details img{
+    width: 80%;
+    height: 80%;
+}
 .container {
     text-align: center;
 }
 
 .container button {
     display: inline-block;
+    font-size: 18px;
 }
 
 .buttonDelete {

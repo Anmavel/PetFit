@@ -18,12 +18,11 @@ export default function AddPet(props: AddPetProps) {
     const [name, setName] = useState<string>(props.pet.name)
     const [nameOfBreedN, setNameOfBreedN] = useState<string>("")
     const [nameOfBreed, setNameOfBreed] = useState<string[]>(props.pet.nameOfBreed)
-    const [photo, setPhoto] = useState<string>(props.pet.photo)
+    const [photo, setPhoto] = useState<string>(props.pet.photo||"https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80")
     const [supplies] = useState<Array<Supply>>(props.pet.supplies)
-    const initialBreeds: Breed[] = [{id: 1, name: "Boxer",}, {id: 2, name: "Husky",},];
+    const initialBreeds: Breed[] = [{id: 0, name: "Click here to choose breed of your pet",},{id: 1, name: "Boxer",}, {id: 2, name: "Husky",},];
     const [breeds, setBreeds] = useState<Breed[]>(initialBreeds);
     const navigate = useNavigate()
-
 
     function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
         setName(event.target.value)
@@ -31,11 +30,6 @@ export default function AddPet(props: AddPetProps) {
     //let selected:Breed = JSON.parse(event.target.value);
     function handleBreedChange(event: ChangeEvent<HTMLSelectElement>) {
         setNameOfBreedN(event.target.value)
-    }
-
-
-    function handlePhotoChange(event: ChangeEvent<HTMLInputElement>) {
-        setPhoto(event.target.value)
     }
 
 
@@ -71,7 +65,12 @@ export default function AddPet(props: AddPetProps) {
                     </option>
                 ))}
             </select>
-            <input type={"text"} onChange={handlePhotoChange} value={photo} placeholder={"photo"} required={false}/>
+            <div >
+                <img
+                    src={props.pet.photo}
+                    alt="dog"
+                />
+            </div>
 
             <button onClick={() => navigate("/pets/" + props.pet.id + "/supplies")}>To supplies</button>
 

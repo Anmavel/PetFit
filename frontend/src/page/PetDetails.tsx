@@ -46,7 +46,12 @@ export default function PetDetails(props: PetDetailsProps) {
             <div className={"pet-details"}>
                 {pet.name}<br/>
                 {pet.nameOfBreed}<br/>
-                {pet.photo}<br/>
+                <div >
+                    <img
+                        src={pet.photo}
+                        alt="dog"
+                    />
+                </div>
                 <div className={"container"}>
                 <button className="buttonDelete" onClick={handleDeleteButton}>Delete</button>
                 <button className="button buttonEdit" onClick={handleEdit}>Edit</button>

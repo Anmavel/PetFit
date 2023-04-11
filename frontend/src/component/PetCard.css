@@ -1,6 +1,11 @@
 .petCard {
     width: 200px;
     height: auto;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
     border-style: solid;
     background-color: beige;
     border-color: #57BD96;
@@ -25,12 +30,27 @@
 }
 
 .petCard img{
-    width: 66px;
-    height: 73px;
+    width: 200px;
+    height: 150px;
 }
 
 .petCard ul{
     color:red;
+}
+
+.petCard link {
+    display: inline-block;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    outline: none;
+    background-color: white;
+    color: #57BD96;
+}
+
+.petCard link:hover {
+    background-color: #f0f0f0;
+    color: #000;
 }
 
 

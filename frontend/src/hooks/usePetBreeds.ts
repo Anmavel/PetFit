@@ -4,9 +4,10 @@ import {Breed} from "../model/Breed";
 
 export default function usePets() {
     const [breeds, setBreeds] = useState<Breed[]>([]);
+    const [pictureBreed, setPictureBreed] = useState<String>("");
     const url = "https://api.TheDogAPI.com/v1/images/search?breed_ids=" + 1
 
-    function loadPetBreeds() {
+    function getBreeds() {
         axios.get("https://api.thedogapi.com/v1/breeds")
             .then(response => response.data
                 .map((breeds: {}) => ({...breeds}))
@@ -15,18 +16,19 @@ export default function usePets() {
             .catch(console.error)
     }
 
-    function loadPetImage() {
+    function getPetImage() {
         axios.get(url)
             .then(response => response.data
-                .map((breeds: {}) => ({...breeds}))
             )
-            .then(setBreeds)
+            .then(setPictureBreed)
+            .catch(console.error)
             .catch(console.error)
     }
 
     useEffect(() => {
-        loadPetBreeds()
+        getBreeds()
+        getPetImage()
     }, [])
 
-    return {breeds, loadPetBreeds, loadPetImage}
+    return {breeds, pictureBreed, getBreeds, getPetImage}
 }
