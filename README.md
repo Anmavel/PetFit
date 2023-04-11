@@ -20,4 +20,5 @@ To run Petfit in your environment, please follow the steps below:
 4. Start the frontend with the command 'npm start'.
 
 Thank you! 👍
+
 ![petfit_logo_small](https://user-images.githubusercontent.com/81617975/231145929-1acafe56-7437-47ab-8fb2-c51803dbdce4.png)
