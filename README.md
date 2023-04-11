@@ -18,3 +18,5 @@ To run PetFit in your environment, please follow the steps below:
         MONGO_URI: mongodb://[SERVER]:[PORT]
 3. Start the backend with Maven.
 4. Start the frontend with the command 'npm start'.
+
+Thank you! 👍
