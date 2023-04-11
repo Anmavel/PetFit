@@ -5,11 +5,11 @@ Choose the name, breed and with PetFit collect data about your future pet, save 
 as well as your future veterinarian's information. With PetFit you will be ready to welcome your new pet!
 Are you PetFit?
 
-#Technology Stack:
+##Technology Stack
 
 The PetFit application uses a Java-based backend built with Spring Boot and Spring Security, and a TypeScript-based frontend built with React. The styling is done using custom CSS.
 
-#Installation and Setup:
+##Installation and Setup
 
 To run PetFit in your environment, please follow the steps below:
 
