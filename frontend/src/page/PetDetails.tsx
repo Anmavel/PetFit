@@ -47,8 +47,10 @@ export default function PetDetails(props: PetDetailsProps) {
                 {pet.name}<br/>
                 {pet.nameOfBreed}<br/>
                 {pet.photo}<br/>
-                <button className="button" onClick={handleDeleteButton}>Delete</button>
-                <button className="button button2" onClick={handleEdit}>Edit</button>
+                <div className={"container"}>
+                <button className="buttonDelete" onClick={handleDeleteButton}>Delete</button>
+                <button className="button buttonEdit" onClick={handleEdit}>Edit</button>
+                </div>
             </div>
         </Layout>
 )

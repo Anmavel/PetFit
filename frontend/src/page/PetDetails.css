@@ -11,10 +11,20 @@
     padding: 20px 20px 20px 20px;
     background: #EBE6E6;
     border: #666666;
+    font-family: 'Lobster', serif;
+    font-size: 20px;
+
 
 }
+.container {
+    text-align: center;
+}
 
-.button {
+.container button {
+    display: inline-block;
+}
+
+.buttonDelete {
     background-color: indianred;
     color: white;
     padding: 7px 10px;
@@ -24,11 +34,11 @@
     cursor: pointer;
 }
 
-.button:hover {
+.buttonDelete:hover {
     background-color: darkred;
 }
 
-.button2 {
+.buttonEdit {
     background-color: #57BD96;
     color: white;
     padding: 7px 10px;
@@ -38,7 +48,7 @@
     cursor: pointer;
 }
 
-.button2:hover {
+.buttonEdit:hover {
     background-color: darkgreen;
 }
 

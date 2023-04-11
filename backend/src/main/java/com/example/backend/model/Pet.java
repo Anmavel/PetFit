@@ -9,7 +9,7 @@ public record Pet(
         @Id
         String id,
         String name,
-        String nameOfBreed,
+        List<String> nameOfBreed,
         String photo,
         List<Supply> supplies,
         String userId) {

@@ -43,7 +43,12 @@ class PetControllerTest {
         supplies.add(new Supply("Item1", false));
         supplies.add(new Supply("Item2", true));
         supplies.add(new Supply("Item3", false));
-        pet1 = new Pet("1", "Whiskers", "albino", "albino.png", supplies, "a");
+        List<String> nameOfBreed = new ArrayList<>();
+        nameOfBreed.add("1" );
+        nameOfBreed.add("albino" );
+
+
+        pet1 = new Pet("1", "Whiskers", nameOfBreed, "albino.png", supplies, "a");
         mongoUser = new MongoUser("a","user","password","BASIC");
     }
 
@@ -82,7 +87,7 @@ class PetControllerTest {
                         .contentType(MediaType.APPLICATION_JSON).content("""               
                                 {"id": null,
                                 "name": "Whiskers",
-                                "nameOfBreed":"albino",
+                                "nameOfBreed":["1","albino"],
                                 "photo":"albino.png",
                                 "supplies":[
                                 {"nameItem":"Item1","bought":false},
@@ -95,7 +100,7 @@ class PetControllerTest {
                 .andExpect(content().json(
                         """                        
                                 {"name": "Whiskers",
-                                "nameOfBreed":"albino",
+                                "nameOfBreed":["1","albino"],
                                 "photo":"albino.png",
                                 "supplies":[
                                 {"nameItem":"Item1","bought":false},
@@ -113,7 +118,7 @@ class PetControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/pets/")
                         .contentType(MediaType.APPLICATION_JSON).content("""               
                                 {"name":"",
-                                "nameOfBreed":"albino",
+                                "nameOfBreed":["1","albino"],
                                 "photo":"albino.png",
                                 "supplies":[
                                 {"nameItem":"Item1","bought":false},
@@ -136,7 +141,7 @@ class PetControllerTest {
                 .andExpect(content().json("""
                         {"id":"1",
                         "name":"Whiskers",
-                        "nameOfBreed":"albino",
+                        "nameOfBreed":["1","albino"],
                         "photo":"albino.png",
                         "supplies":[
                         {"nameItem":"Item1","bought":false},
@@ -166,20 +171,20 @@ class PetControllerTest {
                         content(""" 
                                 {"id": "1",
                                 "name": "Whiskers",
-                                "nameOfBreed":"albino",
+                                "nameOfBreed":["1","albino"],
                                 "photo":"albino.png",
                                 "supplies":[
                                 {"nameItem":"Item1","bought":false},
                                 {"nameItem":"Item2","bought":true},
                                 {"nameItem":"Item3","bought":false}
-                                    ]}      
+                                    ]}  
                                 """).with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """
                                   {"id": "1",
                                    "name": "Whiskers",
-                                   "nameOfBreed":"albino",
+                                   "nameOfBreed":["1","albino"],
                                    "photo":"albino.png",
                                    "supplies":[
                                    {"nameItem":"Item1","bought":false},
@@ -202,7 +207,7 @@ class PetControllerTest {
                 .andExpect(content().json("""
                         {"id":"1",
                         "name": "Whiskers",
-                        "nameOfBreed":"albino",
+                        "nameOfBreed":["1","albino"],
                         "photo":"albino.png",
                         "supplies":[
                         {"nameItem":"Item1","bought":false},

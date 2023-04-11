@@ -49,6 +49,17 @@
     padding: 10px 10px 10px 10px;
 
 }
+.form-submit select {
+    padding: 10px;
+    min-width: 200px;
+    margin-bottom: 20px;
+    box-shadow: 1px 2px 10px rgba(7,7,7, .2);
+    text-align: center;
+    outline-color: gray;
+    text-transform: capitalize;
+    appearance: none;
+    font-size: 1rem;
+}
 
 .form-submit h6 {
     color: #EBE6E6;
