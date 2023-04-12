@@ -1,9 +1,12 @@
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Pet} from "../model/Pet";
 import {useNavigate} from "react-router-dom";
 import "./SubmitForm.css"
 import {Supply} from "../model/Supply";
 import {Breed} from "../model/Breed";
+import getBreeds from '../hooks/usePetBreeds';
+import usePets from "../hooks/usePetBreeds";
+import usePetBreeds from "../hooks/usePetBreeds";
 
 type AddPetProps = {
     onSubmit: (pet: Pet) => Promise<void>
@@ -16,34 +19,25 @@ type AddPetProps = {
 export default function AddPet(props: AddPetProps) {
 
     const [name, setName] = useState<string>(props.pet.name)
-    const [nameOfBreedN, setNameOfBreedN] = useState<string>("")
-    const [nameOfBreed, setNameOfBreed] = useState<string[]>(props.pet.nameOfBreed)
     const [photo, setPhoto] = useState<string>(props.pet.photo||"https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80")
     const [supplies] = useState<Array<Supply>>(props.pet.supplies)
-    const initialBreeds: Breed[] = [{id: 0, name: "Click here to choose breed of your pet",},{id: 1, name: "Boxer",}, {id: 2, name: "Husky",},];
-    const [breeds, setBreeds] = useState<Breed[]>(initialBreeds);
     const navigate = useNavigate()
-
-    function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
+    const {breeds}=usePetBreeds()
+    function handleChangeName(event:ChangeEvent<HTMLInputElement>){
         setName(event.target.value)
-    }
-    //let selected:Breed = JSON.parse(event.target.value);
-    function handleBreedChange(event: ChangeEvent<HTMLSelectElement>) {
-        setNameOfBreedN(event.target.value)
     }
 
 
     function formSubmitHandler(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        const nameOfBreed=[nameOfBreedN]
-        const newPet: Pet = {name, nameOfBreed, photo, supplies}
+        const breed_newPet=[","]
+        const newPet: Pet = {name,breed_newPet, photo, supplies}
         if (props.pet.id) {
             newPet.id = props.pet.id
         }
         props.onSubmit(newPet)
             .then(() => {
                 setName("")
-                setNameOfBreed([])
                 setPhoto("")
 
                 if (props.navigateTo) {
@@ -56,9 +50,9 @@ export default function AddPet(props: AddPetProps) {
     return (
 
         <form onSubmit={formSubmitHandler} className={"form-submit"}>
-            <input type={"text"} onChange={handleNameChange} value={name} placeholder={"write the name of your Pet"}
+            <input type={"text"} onChange={handleChangeName} value={name} placeholder={"write the name of your Pet"}
                    required={true}/>
-            <select value={nameOfBreedN} onChange={handleBreedChange}>
+            <select value={onlyNameOfBreed} onChange={}>
                 {breeds.map((breed) => (
                     <option value={breed.name} key={breed.id}>
                         {breed.name}

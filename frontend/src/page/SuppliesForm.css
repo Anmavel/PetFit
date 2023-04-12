@@ -1,31 +1,44 @@
-.form-submit .submit-supply {
+.form-submit{
     display: flex;
     align-items: center;
     flex-flow: column;
+    gap: 10px;
+    width: 42vh;
+
+}
+
+.submit-supply {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    gap: 10px;
     margin: auto;
-    height: 15vh;
-    width: 40vh;
+    height: 200px;
+    width: 260px;
     overflow: auto;
+    padding: 10px 10px 10px 10px;
+    min-height: 200px;
 }
 
 .submit-supply input[type="text"] {
-    width: 90%;
+    width: 200px;
     height: 50px;
     font-size: medium;
     padding: 10px 10px 10px 10px;
 }
 
 .submit-supply input[type="checkbox"] {
-    margin-left: 1rem;
+    font-size: large;
     cursor: pointer;
 }
 
 .submit-supply button[type="button"] {
-    margin-left: 1rem;
     background-color: #dc3545;
+    width: 200px;
+    height: 50px;
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 10px 10px 10px 10px;
     border-radius: 4px;
     cursor: pointer;
 }

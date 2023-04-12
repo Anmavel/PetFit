@@ -16,6 +16,7 @@
 
 .form-submit:hover {
     background-image: url("../../public/natasya-chen.jpg");
+    opacity: 80%;
 }
 
 .form-submit h2 {
@@ -50,7 +51,7 @@
 
 }
 .form-submit select {
-    font-size: 16px;
+    font-size: 18px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -58,7 +59,7 @@
     outline: none;
     background-color: white;
     color: #333;
-    width: 100%;
+    width: 97%;
     margin: 10px 0;
 }
 
@@ -69,7 +70,7 @@ select option {
 
 .form-submit img{
     width: 80%;
-    height: 80%;
+    height: 90%;
 }
 
 .form-submit h6 {
