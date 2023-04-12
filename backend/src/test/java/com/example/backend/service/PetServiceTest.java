@@ -43,9 +43,10 @@ class PetServiceTest {
         List<String> nameOfBreed = new ArrayList<>();
         nameOfBreed.add("1" );
         nameOfBreed.add("albino" );
-        pet1DTO = new PetDTO("Whiskers", nameOfBreed, "albino.png", supplies);
+        String photo = "albino.png";
+        pet1DTO = new PetDTO("Whiskers", nameOfBreed, photo, supplies);
         pet1 = new Pet("1", pet1DTO.name(), pet1DTO.nameOfBreed(), pet1DTO.photo(), pet1DTO.supplies(),"a");
-        petNoSuppliesDTO = new PetDTO("Whiskers", nameOfBreed, "albino.png", noSupplies);
+        petNoSuppliesDTO = new PetDTO("Whiskers", nameOfBreed, photo, noSupplies);
         petNoSupplies = new Pet("1", petNoSuppliesDTO.name(), petNoSuppliesDTO.nameOfBreed(), petNoSuppliesDTO.photo(), petNoSuppliesDTO.supplies(),"a");
 
     }
@@ -98,8 +99,9 @@ class PetServiceTest {
         List<String> nameOfBreed = new ArrayList<>();
         nameOfBreed.add("1" );
         nameOfBreed.add("albino" );
-        PetDTO petNoSuppliesDTO_pet2 = new PetDTO("Whiskers",nameOfBreed, "albino.png", noSupplies2);
-        Pet petWithId_and_noSupplies = new Pet("1", "Whiskers", nameOfBreed, "albino.png", petNoSuppliesDTO_pet2.supplies(), "a");
+        String photo = "albino.png";
+        PetDTO petNoSuppliesDTO_pet2 = new PetDTO("Whiskers",nameOfBreed, photo, noSupplies2);
+        Pet petWithId_and_noSupplies = new Pet("1", "Whiskers", nameOfBreed, photo, petNoSuppliesDTO_pet2.supplies(), "a");
         when(petRepo.save(petWithId_and_noSupplies)).thenReturn(petWithId_and_noSupplies);
         when(mongoUserDetailsService.getMe(principal)).thenReturn(new MongoUserResponse("a", "", ""));
 

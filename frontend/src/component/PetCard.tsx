@@ -15,7 +15,7 @@ export default function PetCard(props: Props) {
         <div className={"petCard"}>
             <img src={imgSrc} onError={()=> setImgSrc("/petfit_logo_small_icon_only_inverted.png")} alt={"logo"}/><br/>
             <h2>{props.pet.name}</h2>
-            <h3>{props.pet.nameOfBreed}</h3>
+            <h3>{props.pet.nameOfBreed[1]}</h3>
             <Link to={"/pets/"+props.pet.id}>Details</Link>
         </div>
     )

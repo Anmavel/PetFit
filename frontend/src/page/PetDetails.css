@@ -3,8 +3,8 @@
     flex-flow: column;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    height: 40vh;
+    gap: 5px;
+    height: 50vh;
     width: 42vh;
     margin: auto;
     overflow: auto;

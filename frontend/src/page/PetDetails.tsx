@@ -45,7 +45,7 @@ export default function PetDetails(props: PetDetailsProps) {
             <h2>{pet.name} details</h2>
             <div className={"pet-details"}>
                 {pet.name}<br/>
-                {pet.nameOfBreed}<br/>
+                {pet.nameOfBreed[1]}<br/>
                 <div >
                     <img
                         src={pet.photo}

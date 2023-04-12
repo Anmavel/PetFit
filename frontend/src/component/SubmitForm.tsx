@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent,useState} from "react";
+import React, {ChangeEvent, FormEvent, useState} from "react";
 import {Pet} from "../model/Pet";
 import {useNavigate} from "react-router-dom";
 import "./SubmitForm.css"
@@ -16,32 +16,43 @@ type AddPetProps = {
 export default function AddPet(props: AddPetProps) {
 
     const [name, setName] = useState<string>(props.pet.name)
-    const [photo, setPhoto] = useState<string>(props.pet.photo||"https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80")
     const [supplies] = useState<Array<Supply>>(props.pet.supplies)
-    const [breed, setBreed] = useState<string[]>(props.pet.nameOfBreed)
+    const {breeds, breedPictures,getBreedsPicture} = usePetBreeds()
+    const [photo, setPhoto] = useState<string>(props.pet.photo)
+    const [breedIndex, setBreedIndex] = useState<number>(Number(props.pet.nameOfBreed[0]))
     const navigate = useNavigate()
-    const {breeds}=usePetBreeds()
-    function handleChangeName(event:ChangeEvent<HTMLInputElement>){
+
+    function handleChangeName(event: ChangeEvent<HTMLInputElement>) {
         setName(event.target.value)
     }
-    function  handleBreedChange(event:ChangeEvent<HTMLSelectElement>){
 
-        setBreed([event.target.value])
+    function handleBreedChange(event: ChangeEvent<HTMLSelectElement>) {
+        setBreedIndex(Number(event.target.value))
+        getBreedsPicture(breeds[Number(event.target.value)].id)
+        setPhoto(breedPictures[0].url)
     }
+    function getPicture(){
+        return breedPictures[0]?.url||props.pet.photo
+    }
+
 
     function formSubmitHandler(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        let nameOfBreed=breed
-        const newPet: Pet = {name,nameOfBreed, photo, supplies}
+        let nameOfBreed = [breedIndex.toString(),breeds[breedIndex].name]
+        let photo=breedPictures[0]?.url
+        const newPet: Pet = {name, nameOfBreed, photo, supplies}
         if (props.pet.id) {
             newPet.id = props.pet.id
         }
+        if (props.pet.nameOfBreed[0] === nameOfBreed[0]) {
+            newPet.photo = props.pet.photo;
+        }
+
         props.onSubmit(newPet)
             .then(() => {
                 setName("")
-                setBreed([])
+                setBreedIndex(0)
                 setPhoto("")
-
                 if (props.navigateTo) {
                     navigate(props.navigateTo)
                 }
@@ -54,18 +65,16 @@ export default function AddPet(props: AddPetProps) {
         <form onSubmit={formSubmitHandler} className={"form-submit"}>
             <input type={"text"} onChange={handleChangeName} value={name} placeholder={"write the name of your Pet"}
                    required={true}/>
-            <select value={breed} onChange={handleBreedChange} >
-                {breeds.map((breed) => (
-                    <option value={breed.name} key={breed.id}>
+            <select value={breedIndex} onChange={handleBreedChange} required={true}>
+                {breeds.map((breed,index) => (
+                    <option value={index} key={breed.id}>
                         {breed.name}
                     </option>
                 ))}
             </select>
-            <div >
-                <img
-                    src={props.pet.photo}
-                    alt="dog"
-                />
+
+            <div>
+                <img defaultValue={photo} src={getPicture()} alt="dog"/>
             </div>
 
             <button onClick={() => navigate("/pets/" + props.pet.id + "/supplies")}>To supplies</button>
@@ -74,7 +83,6 @@ export default function AddPet(props: AddPetProps) {
                 {props.action === "add" && "Save"}
                 {props.action === "update" && "Update"}
             </button>
-            <h6>Natasya Chen</h6>
         </form>
     )
 }
