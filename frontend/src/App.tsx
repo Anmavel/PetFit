@@ -25,7 +25,6 @@ axios.interceptors.request.use(function (config) {
 });
 function App() {
     const {pets, postNewPet,updatePet,deletePet} = usePets();
-    
 
     return (
         <div className="App">

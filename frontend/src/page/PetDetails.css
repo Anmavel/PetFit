@@ -3,18 +3,33 @@
     flex-flow: column;
     align-items: center;
     justify-content: space-between;
-    gap: 32px;
-    height: 40vh;
-    width: 40vh;
+    gap: 5px;
+    height: 50vh;
+    width: 42vh;
     margin: auto;
     overflow: auto;
     padding: 20px 20px 20px 20px;
     background: #EBE6E6;
     border: #666666;
+    font-family: 'Lobster', serif;
+    font-size: 20px;
+
 
 }
+.pet-details img{
+    width: 80%;
+    height: 80%;
+}
+.container {
+    text-align: center;
+}
 
-.button {
+.container button {
+    display: inline-block;
+    font-size: 18px;
+}
+
+.buttonDelete {
     background-color: indianred;
     color: white;
     padding: 7px 10px;
@@ -24,11 +39,11 @@
     cursor: pointer;
 }
 
-.button:hover {
+.buttonDelete:hover {
     background-color: darkred;
 }
 
-.button2 {
+.buttonEdit {
     background-color: #57BD96;
     color: white;
     padding: 7px 10px;
@@ -38,7 +53,7 @@
     cursor: pointer;
 }
 
-.button2:hover {
+.buttonEdit:hover {
     background-color: darkgreen;
 }
 

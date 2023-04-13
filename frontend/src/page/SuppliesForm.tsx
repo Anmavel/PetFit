@@ -35,7 +35,7 @@ export default function SuppliesForm(props: Props) {
 
     if (!pet) {
         return (
-            <h2>Sorry, no task with id {petId} found :(</h2>
+            <h2>Sorry, no Pet with id {petId} found :(</h2>
         )
     }
 
