@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface PetRepo extends MongoRepository<Pet,String> {
-    List<Pet> findPetByUserId(String userId);
+    List<Pet> findPetsByUserId(String userId);
 
 }

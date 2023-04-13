@@ -39,7 +39,6 @@ class PetControllerTest {
 
     @BeforeEach
     void setUp() {
-
         List<String> nameOfBreed = new ArrayList<>();
         nameOfBreed.add("1");
         nameOfBreed.add("albino");
@@ -48,7 +47,6 @@ class PetControllerTest {
         supplies.add(new Supply("Item1", false));
         supplies.add(new Supply("Item2", true));
         supplies.add(new Supply("Item3", false));
-
         pet1 = new Pet("1", "Whiskers", nameOfBreed, photo, supplies, "a");
         mongoUser = new MongoUser("a", "user", "password", "BASIC");
     }

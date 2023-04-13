@@ -9,6 +9,7 @@ import useAuth from "../hooks/useAuth";
 type PetGalleryProps = {
     pets: Pet[]
     navigateTo: string | undefined
+
 }
 
 export default function PetGallery(props: PetGalleryProps) {
