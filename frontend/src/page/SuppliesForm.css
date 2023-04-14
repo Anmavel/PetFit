@@ -3,7 +3,10 @@
     align-items: center;
     flex-flow: column;
     gap: 10px;
+    height: 65vh;
     width: 42vh;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
 }
 
 .submit-supply {

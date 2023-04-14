@@ -19,7 +19,7 @@ export default function AddPet(props: AddPetProps) {
     const [name, setName] = useState<string>(props.pet.name)
     const [supplies] = useState<Array<Supply>>(props.pet.supplies)
     const {breeds, breedPictures, getBreedsPicture} = usePetBreeds()
-    const [photo, setPhoto] = useState<string>(props.pet.photo)
+    const [photo, setPhoto] = useState<string>("" || props.pet.photo)
     const [breedIndex, setBreedIndex] = useState<number>(Number(props.pet.nameOfBreed[0]))
     const navigate = useNavigate()
 
@@ -33,8 +33,9 @@ export default function AddPet(props: AddPetProps) {
         getBreedsPicture(breeds[Number(event.target.value)].id)
         setPhoto(breedPictures[0].url)
     }
-    function handleBefore(){
-        setPhoto("./petfit_logo_small_icon_only_inverted.png")
+
+    function handleError() {
+        setPhoto("/petfit_logo_small_icon_only_inverted.png")
     }
 
     function getPicture() {
@@ -79,11 +80,9 @@ export default function AddPet(props: AddPetProps) {
                 ))}
             </select>
             <div>
-                <img onLoad={handleBefore} defaultValue={photo} src={getPicture()} alt={"dog"}/>
+                <img onError={handleError} defaultValue={photo} src={getPicture()} alt={""}/>
             </div>
-
             <button onClick={() => navigate("/pets/")}>Cancel</button>
-            <button onClick={() => navigate("/pets/" + props.pet.id + "/supplies")}>To supplies</button>
             <button type={"submit"}>
                 {props.action === "add" && "Save"}
                 {props.action === "update" && "Update"}

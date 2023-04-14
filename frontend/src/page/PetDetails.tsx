@@ -3,6 +3,7 @@ import Layout from "../component/Layout";
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import "../page/PetDetails.css"
+import SuppliesDetails from "../component/SuppliesDetails";
 
 type PetDetailsProps = {
     pets: Pet[]
@@ -46,14 +47,10 @@ export default function PetDetails(props: PetDetailsProps) {
         <Layout>
             <h2>{pet.name} details</h2>
             <div className={"pet-details"}>
-                {pet.name}<br/>
                 {pet.nameOfBreed[1]}<br/>
-                <div>
-                    <img
-                        src={pet.photo}
-                        alt="dog"
-                    />
-                </div>
+                <img src={pet.photo} alt="dog"/>
+                <SuppliesDetails pet={pet}/>
+                <button onClick={() => navigate("/pets/" + pet.id + "/supplies")}>To supplies</button>
                 <div className={"container"}>
                     <button className="buttonDelete" onClick={handleDeleteButton}>Delete</button>
                     <button className="button buttonBack" onClick={() => navigate("/pets/")}>Back</button>

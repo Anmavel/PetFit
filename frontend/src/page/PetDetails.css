@@ -2,23 +2,27 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 5px;
-    height: 42vh;
+    gap: 1px;
+    height: 60vh;
     width: 42vh;
     margin: auto;
     overflow: auto;
-    padding: 20px 20px 20px 20px;
+    padding: 10px 10px 10px 10px;
     background: #EBE6E6;
     border: #666666;
     font-family: 'Lobster', serif;
     font-size: 20px;
+}
+.pet-details button {
+    display: inline-block;
+    font-size: 20px;
+}
 
-}
 .pet-details img{
-    width: 80%;
-    height: 80%;
+    width: 70%;
+    height: 70%;
 }
+
 .container {
     text-align: center;
 }
@@ -57,7 +61,7 @@
 }
 
 .buttonBack {
-    background-color: dodgerblue;
+    background-color:sandybrown;
     color: white;
     padding: 7px 10px;
     margin: 8px 0;
@@ -67,7 +71,7 @@
 }
 
 .buttonBack:hover {
-    background-color: #0567B0;
+    background-color: orange;
 }
 
 

@@ -35,11 +35,7 @@ export default function SuppliesForm(props: Props) {
 
     if (!pet) {
         return (
-            <>
-                <h2>Sorry, no Pet with id {petId} allowed :(</h2>
-                <h4>You have to add a Pet before add a supply for it</h4>
-                <button onClick={() => navigate("/pets/add")}>Back</button>
-            </>
+            <h2>Sorry, no Pet with id {petId} allowed :(</h2>
         )
     }
 
@@ -62,7 +58,7 @@ export default function SuppliesForm(props: Props) {
         <Layout>
             <form onSubmit={formSubmitHandler} className={"form-submit"}>
                 <h3>Supplies for your {pet.name} </h3>
-                <h4>You can add, put a tick or delete supplies here: </h4>
+                <h4>Add, put a tick when bought or delete supplies here:</h4>
                 {supplies.map((supply, key) =>
                     <div className={"submit-supply"} key={supply.id}>
                         <input
@@ -74,7 +70,7 @@ export default function SuppliesForm(props: Props) {
                             ))}
                             value={supply.nameItem}
                             placeholder={"water bottle, food"}
-                            required={false}/>
+                            required={true}/>
 
                         <input
                             type={"checkbox"}
@@ -105,7 +101,9 @@ export default function SuppliesForm(props: Props) {
                     </button>
                     <button>Save Changes</button>
                     <br/>
+                    <button onClick={() => navigate("/pets/" + pet.id)}>Cancel</button>
                 </div>
+
             </form>
         </Layout>
     )

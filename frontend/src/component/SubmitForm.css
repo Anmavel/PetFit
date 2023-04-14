@@ -2,8 +2,7 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    gap: 10px;
     height: 50vh;
     width: 40vh;
     margin: auto;
