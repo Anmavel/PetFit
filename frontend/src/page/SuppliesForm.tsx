@@ -35,7 +35,11 @@ export default function SuppliesForm(props: Props) {
 
     if (!pet) {
         return (
-            <h2>Sorry, no Pet with id {petId} found :(</h2>
+            <>
+                <h2>Sorry, no Pet with id {petId} allowed :(</h2>
+                <h4>You have to add a Pet before add a supply for it</h4>
+                <button onClick={() => navigate("/pets/add")}>Back</button>
+            </>
         )
     }
 
@@ -43,7 +47,7 @@ export default function SuppliesForm(props: Props) {
         event.preventDefault()
         if (!pet) {
             return (
-                <h2>Sorry, no task with id {petId} found :(</h2>
+                <h2>Sorry, no Pet with id {petId} found :(</h2>
             )
         }
         const newPet: Pet = {...pet, supplies}

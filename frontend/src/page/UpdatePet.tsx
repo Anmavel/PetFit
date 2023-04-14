@@ -6,13 +6,12 @@ import SubmitForm from "../component/SubmitForm";
 import axios from "axios";
 import useAuth from "../hooks/useAuth";
 
-
 type Props = {
     pets: Pet[],
     onUpdate: (updatedPet: Pet) => Promise<void>
 }
 
-export default function UpdateTask(props: Props) {
+export default function UpdatePet(props: Props) {
     const params = useParams();
     const petId: string | undefined = params.id;
     const [pet, setPet] = useState<Pet | undefined>();
@@ -22,7 +21,7 @@ export default function UpdateTask(props: Props) {
         const filteredPet = props.pets.find(pet => pet.id === petId);
         if (filteredPet) {
             setPet(filteredPet);
-        }else {
+        } else {
             axios.get("/api/pets/" + petId)
                 .then(response => response.data)
                 .then(setPet)
@@ -32,14 +31,14 @@ export default function UpdateTask(props: Props) {
 
     if (!pet) {
         return (
-            <h2>Sorry, no task with id {petId} found :(</h2>
+                <h2>Sorry, no Pet with id {petId} found :(</h2>
         )
     }
 
     return !user ? null : (
         <Layout>
             <h2>Update your {pet.name}</h2>
-            <SubmitForm onSubmit={props.onUpdate}  navigateTo={"/pets"} action={"update"} pet={pet}/>
+            <SubmitForm onSubmit={props.onUpdate} navigateTo={"/pets"} action={"update"} pet={pet}/>
         </Layout>
     )
 }

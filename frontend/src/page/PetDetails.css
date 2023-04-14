@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 5px;
-    height: 50vh;
+    height: 42vh;
     width: 42vh;
     margin: auto;
     overflow: auto;
@@ -13,7 +13,6 @@
     border: #666666;
     font-family: 'Lobster', serif;
     font-size: 20px;
-
 
 }
 .pet-details img{
@@ -55,6 +54,20 @@
 
 .buttonEdit:hover {
     background-color: darkgreen;
+}
+
+.buttonBack {
+    background-color: dodgerblue;
+    color: white;
+    padding: 7px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.buttonBack:hover {
+    background-color: #0567B0;
 }
 
 

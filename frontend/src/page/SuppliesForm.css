@@ -17,6 +17,8 @@
     overflow: auto;
     padding: 10px 10px 10px 10px;
     min-height: 200px;
+    background-color: lightgoldenrodyellow;
+    border: 2px solid darksalmon;
 }
 
 .submit-supply input[type="text"] {
