@@ -1,0 +1,26 @@
+.supplies-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+    background-color: #EBE6E6;
+    color: black;
+    font-size: small;
+    font-family: 'Lobster', serif;
+}
+
+.supply-item {
+    font-weight: bold;
+}
+
+.bought-status {
+    font-weight: normal;
+}
+
+.bought-status.true {
+    color: #28a745;
+    font-size: small;
+}
+
+.bought-status.false {
+    color: #dc3545;
+}

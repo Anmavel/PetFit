@@ -35,7 +35,7 @@ export default function SuppliesForm(props: Props) {
 
     if (!pet) {
         return (
-            <h2>Sorry, no Pet with id {petId} found :(</h2>
+            <h2>Sorry, no Pet with id {petId} allowed :(</h2>
         )
     }
 
@@ -43,7 +43,7 @@ export default function SuppliesForm(props: Props) {
         event.preventDefault()
         if (!pet) {
             return (
-                <h2>Sorry, no task with id {petId} found :(</h2>
+                <h2>Sorry, no Pet with id {petId} found :(</h2>
             )
         }
         const newPet: Pet = {...pet, supplies}
@@ -58,7 +58,7 @@ export default function SuppliesForm(props: Props) {
         <Layout>
             <form onSubmit={formSubmitHandler} className={"form-submit"}>
                 <h3>Supplies for your {pet.name} </h3>
-                <h4>You can add, put a tick or delete supplies here: </h4>
+                <h4>Add, put a tick when bought or delete supplies here:</h4>
                 {supplies.map((supply, key) =>
                     <div className={"submit-supply"} key={supply.id}>
                         <input
@@ -70,7 +70,7 @@ export default function SuppliesForm(props: Props) {
                             ))}
                             value={supply.nameItem}
                             placeholder={"water bottle, food"}
-                            required={false}/>
+                            required={true}/>
 
                         <input
                             type={"checkbox"}
@@ -101,7 +101,9 @@ export default function SuppliesForm(props: Props) {
                     </button>
                     <button>Save Changes</button>
                     <br/>
+                    <button onClick={() => navigate("/pets/" + pet.id)}>Cancel</button>
                 </div>
+
             </form>
         </Layout>
     )

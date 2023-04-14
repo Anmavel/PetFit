@@ -36,6 +36,7 @@ export default function SignForm(props: Props) {
                 }
                 else{
                     navigate("/" );
+                    toast("Welcome")
                 }
                 navigate(navigateTo);
             }).catch(err => {

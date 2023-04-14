@@ -12,14 +12,16 @@ export default function Navigation() {
     function handleLogOutClick() {
         axios.post("/api/users/logout").then(res => {
             if (res.status === 200) {
-                toast.success("You were successfully logout. Bye 👋");
                 window.sessionStorage.setItem(
                     "signInRedirect",
                     location.pathname || "/"
                 );
             }
-        });
-
+        })
+            .catch(err => {
+                console.error(err);
+                toast("bye");
+            })
         window.location.href = "/sign-in";
     }
 
@@ -29,7 +31,6 @@ export default function Navigation() {
                   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
             <div className="navbar">
                 <NavLink to="/" className="active"><i className="fa fa-fw fa-home"></i>Home</NavLink>
-
                 {user ?
                     <>
                         <NavLink to={"#"} onClick={handleLogOutClick}>Sign out</NavLink>

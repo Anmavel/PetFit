@@ -6,7 +6,7 @@ type Props = {
     onAdd: (newPet: Pet) => Promise<void>
 }
 
-export default function AddTask(props: Props) {
+export default function AddPet(props: Props) {
 
     return (
         <Layout>
