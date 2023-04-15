@@ -82,7 +82,7 @@ export default function AddPet(props: AddPetProps) {
             <div>
                 <img onError={handleError} defaultValue={photo} src={getPicture()} alt={""}/>
             </div>
-            <button onClick={() => navigate("/pets/")}>Cancel</button>
+            <button onClick={() => navigate("/pets/")}>Back to Gallery</button>
             <button type={"submit"}>
                 {props.action === "add" && "Save"}
                 {props.action === "update" && "Update"}

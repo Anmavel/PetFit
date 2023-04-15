@@ -6,6 +6,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import "./SuppliesForm.css"
 import Layout from "../component/Layout";
+import {toast} from "react-toastify";
 
 
 type Props = {
@@ -69,7 +70,7 @@ export default function SuppliesForm(props: Props) {
                                     : supply
                             ))}
                             value={supply.nameItem}
-                            placeholder={"water bottle, food"}
+                            placeholder={"water bowl, food bowl, toys"}
                             required={true}/>
 
                         <input
@@ -99,7 +100,7 @@ export default function SuppliesForm(props: Props) {
                                 setSupplies([...supplies, {id: uuidv4(), nameItem: "", bought: false}])}>
                         Add supply
                     </button>
-                    <button>Save Changes</button>
+                    <button onClick={()=>toast("Supplies successfully saved")}>Save Changes</button>
                     <br/>
                     <button onClick={() => navigate("/pets/" + pet.id)}>Cancel</button>
                 </div>
