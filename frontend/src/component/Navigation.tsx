@@ -1,6 +1,6 @@
 import React from "react";
 import "./Navigation.css"
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import {toast} from "react-toastify";
@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 export default function Navigation() {
     const user = useAuth(false);
     const location = useLocation()
+    const navigate=useNavigate()
 
     function handleLogOutClick() {
         axios.post("/api/users/logout").then(res => {
@@ -16,13 +17,13 @@ export default function Navigation() {
                     "signInRedirect",
                     location.pathname || "/"
                 );
+                navigate("/sign-in")
+                toast.success("Bye")
             }
         })
             .catch(err => {
                 console.error(err);
-                toast("bye");
             })
-        window.location.href = "/sign-in";
     }
 
     return (
