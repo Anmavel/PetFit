@@ -1,7 +1,7 @@
 .supplies-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 5px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2px;
     background-color: #EBE6E6;
     color: black;
     font-size: small;
@@ -10,6 +10,7 @@
 
 .supply-item {
     font-weight: bold;
+    border: black;
 }
 
 .bought-status {

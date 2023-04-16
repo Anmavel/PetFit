@@ -65,8 +65,7 @@ export default function AddPet(props: AddPetProps) {
                 toast("Successfully saved")
             })
     }
-
-
+    
     return (
         <form onSubmit={formSubmitHandler} className={"form-submit"}>
             <input type={"text"} onChange={handleChangeName} value={name} placeholder={"write the name of your Pet"}
