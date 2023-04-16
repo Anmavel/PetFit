@@ -10,7 +10,7 @@ type Props = {
 export default function SuppliesDetails(props: Props) {
     return (
         <>
-            <h6>Supplies:</h6>
+            <h4>Supplies:</h4>
             <div className={"supplies-container"}>
                 {props.pet.supplies.map((supply) => (
                     <div key={supply.id}>
