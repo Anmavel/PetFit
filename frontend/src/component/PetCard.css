@@ -11,6 +11,7 @@
     border-color: #57BD96;
     margin: 1px;
     color: cadetblue;
+    text-transform: capitalize;
     box-shadow: 1px 2px 10px rgba(7, 7, 7, .2);
     cursor: pointer;
     transition: transform .1s;

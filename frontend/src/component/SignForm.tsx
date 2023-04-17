@@ -31,18 +31,17 @@ export default function SignForm(props: Props) {
         event.preventDefault();
         axios.post(url, data, config)
             .then(() => {
-                if (props.action==="sign-up"){
+                if (props.action === "sign-up") {
                     toast(" 🎉 you were successfully registered")
-                }
-                else{
-                    navigate("/" );
+                } else {
+                    navigate("/");
                     toast("Welcome")
                 }
                 navigate(navigateTo);
             }).catch(err => {
             console.error(err);
             setFormError(err.response.data.error || err.response.data.message);
-            switch(formError) {
+            switch (formError) {
                 case "Unauthorized":
                     toast(" ❌ Error: please Sign Up ");
                     navigate("/sign-up");
@@ -51,7 +50,7 @@ export default function SignForm(props: Props) {
                     toast(" ❌ Error: missing Name or Password");
                     break;
                 default:
-                break;
+                    break;
             }
         });
     }
@@ -59,29 +58,25 @@ export default function SignForm(props: Props) {
     return (
         <form className={"signup-form"} onSubmit={formSubmitHandler}>
             {formError && <div className={"form-error"}>Error: {formError}</div>}
-            <div>
-                <label>
-                    Username<br/>
-                    <input
-                        type="text"
-                        value={username}
-                        placeholder={"username"}
-                        onChange={handleUsernameChange}
-                    />
-                </label>
-            </div>
+            <label>
+                Username<br/>
+                <input
+                    type="text"
+                    value={username}
+                    placeholder={"username"}
+                    onChange={handleUsernameChange}
+                />
+            </label>
 
-            <div>
-                <label>
-                    Password<br/>
-                    <input
-                        type="password"
-                        value={password}
-                        placeholder={"password"}
-                        onChange={handlePasswordChange}
-                    />
-                </label>
-            </div>
+            <label>
+                Password<br/>
+                <input
+                    type="password"
+                    value={password}
+                    placeholder={"password"}
+                    onChange={handlePasswordChange}
+                />
+            </label>
 
             <button type="submit">
                 {props.action === "sign-in" && "Sign In"}

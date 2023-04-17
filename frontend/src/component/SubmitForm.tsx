@@ -69,7 +69,7 @@ export default function AddPet(props: AddPetProps) {
     return (
         <form onSubmit={formSubmitHandler} className={"form-submit"}>
             <input type={"text"} onChange={handleChangeName} value={name} placeholder={"write the name of your Pet"}
-                   required={true}/>
+                   maxLength={12} required={true}/>
             <select value={breedIndex} onChange={handleBreedChange}>
                 <option>Choose breed of your dog:</option>
                 {breeds.map((breed, index) => (
