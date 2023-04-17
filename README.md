@@ -16,7 +16,8 @@ To run Petfit in your environment, please follow the steps below:
 2. Set up the following environment variables for the backend:
         MONGO_URI: mongodb://[SERVER]:[PORT]
 3. Start the backend with Maven.
-4. Start the frontend with the command 'npm start'.
+4. cd into the frontend folder and run: npm ci
+5. Start the frontend with the command 'npm start'.
 
 Thank you! 👍
 
