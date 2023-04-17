@@ -52,7 +52,7 @@ export default function SuppliesForm(props: Props) {
             newPet.id = pet.id
         }
         props.onUpdate(newPet)
-            .then(() => navigate("/pets/" + pet.id + "/update"))
+            .then(() => navigate("/pets/" + pet.id))
         toast("Supplies successfully saved")
     }
 
