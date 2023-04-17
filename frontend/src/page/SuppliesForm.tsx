@@ -96,14 +96,13 @@ export default function SuppliesForm(props: Props) {
 
                     </div>
                 )}
-                <div>
+                <div className={"containerForButtons"}>
                     <button type={"button"}
                             onClick={() =>
                                 setSupplies([...supplies, {id: uuidv4(), nameItem: "", bought: false}])}>
                         Add supply
                     </button>
                     <button>Save Changes</button>
-                    <br/>
                     <button onClick={() => navigate("/pets/" + pet.id)}>Cancel</button>
                 </div>
 

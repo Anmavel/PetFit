@@ -1,17 +1,36 @@
 .pet-gallery {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row;
     justify-content: center;
     align-items: center;
     gap: 5px;
     border: 2px solid #57BD96;
     border-radius: 4px;
-    width: 80%;
-    margin: auto;
+    width: 50%;
+    height: 50%;
+    min-height: 400px;
+    margin: 2px;
     overflow: auto;
-    padding: 5px;
+    padding: 5px 5px 5px 5px;
     background: #EBE6E6;
-    min-height: 40vh;
-    min-width: 50vh;
+    min-width: 46vh;
 
 }
+
+.pagination button {
+    background-color: #57BD96;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.pagination button:hover {
+    background-color: darkgreen;
+    color: white;
+}
+
+
+

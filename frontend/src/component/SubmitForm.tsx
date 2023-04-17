@@ -65,7 +65,7 @@ export default function AddPet(props: AddPetProps) {
                 toast("Successfully saved")
             })
     }
-    
+
     return (
         <form onSubmit={formSubmitHandler} className={"form-submit"}>
             <input type={"text"} onChange={handleChangeName} value={name} placeholder={"write the name of your Pet"}
@@ -78,16 +78,16 @@ export default function AddPet(props: AddPetProps) {
                     </option>
                 ))}
             </select>
-            {breedIndex>=0&&(
-                <div>
+            {breedIndex >= 0 && (
                     <img alt={photo} src={getPicture()} onError={handleError}/>
-                </div>
             )}
-            <button onClick={() => navigate("/pets/")}>Back to Gallery</button>
-            <button type={"submit"}>
-                {props.action === "add" && "Save"}
-                {props.action === "update" && "Update"}
-            </button>
+            <div>
+                <button onClick={() => navigate("/pets/")}>Back to Gallery</button>
+                <button type={"submit"}>
+                    {props.action === "add" && "Save"}
+                    {props.action === "update" && "Update"}
+                </button>
+            </div>
         </form>
     )
 }

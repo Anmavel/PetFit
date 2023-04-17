@@ -34,7 +34,6 @@ export default function PetGallery(props: PetGalleryProps) {
 
     return !user ? <>''</> : (
         <Layout>
-            <>
                 <h2>All pets</h2>
                 <section className={"pet-gallery"}>{petsToDisplay.length > 0 ? petsToDisplay : "No pets yet"}<br/>
                 </section>
@@ -57,7 +56,6 @@ export default function PetGallery(props: PetGalleryProps) {
                         );
                     })}
                 </div>
-            </>
         </Layout>
     )
 

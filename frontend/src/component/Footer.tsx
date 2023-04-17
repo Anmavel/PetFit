@@ -7,6 +7,5 @@ export default function Footer(){
             copyright &copy;{today.getFullYear()}
         </footer>
 
-
     )
 }

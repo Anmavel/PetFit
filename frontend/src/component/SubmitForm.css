@@ -3,14 +3,13 @@
     flex-flow: column;
     align-items: center;
     gap: 10px;
-    height: 50vh;
-    width: 40vh;
+    height: 70vh;
+    width: 45vh;
     margin: auto;
     overflow: auto;
     padding: 20px 20px 20px 20px;
     background: #EBE6E6;
     border: #666666;
-
 }
 
 .form-submit:hover {
@@ -21,24 +20,6 @@
     font-family: 'Lobster', serif;
     font-size: 50px;
     font-weight: bold;
-}
-
-.form-submit button {
-    width: 95%;
-    padding: 10px 10px 10px 10px;
-    margin: 1px 0;
-    border: #57BD96;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: large;
-    transition-duration: 0.4s;
-
-}
-
-.form-submit button:hover {
-
-    background-color: #57BD96;
-    color: white;
 }
 
 .form-submit input {
@@ -66,15 +47,6 @@ select option {
 }
 
 .form-submit img{
-    width: 80%;
-    height: 90%;
+    max-width: 80%;
+    max-height: 90%;
 }
-
-.form-submit h6 {
-    color: #EBE6E6;
-}
-
-.form-submit h6:hover {
-    color: black;
-}
-

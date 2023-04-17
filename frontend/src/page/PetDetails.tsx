@@ -50,9 +50,9 @@ export default function PetDetails(props: PetDetailsProps) {
                 <h4>{pet.nameOfBreed[1]}</h4><br/>
                 <img src={pet.photo} alt="dog"/>
                 <SuppliesDetails pet={pet}/>
-                <button onClick={() => navigate("/pets/" + pet.id + "/supplies")}>To supplies</button>
+                <button className={"buttonToSupplies"} onClick={() => navigate("/pets/" + pet.id + "/supplies")}>To supplies</button>
                 <div className={"container"}>
-                    <button className="buttonDelete" onClick={handleDeleteButton}>Delete</button>
+                    <button className="button buttonDelete" onClick={handleDeleteButton}>Delete</button>
                     <button className="button buttonBack" onClick={() => navigate("/pets/")}>Back to gallery</button>
                     <button className="button buttonEdit" onClick={handleEdit}>Edit</button>
                 </div>
