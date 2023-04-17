@@ -6,7 +6,5 @@ export default function Footer(){
         <footer className={"footer"}>
             copyright &copy;{today.getFullYear()}
         </footer>
-
-
     )
 }

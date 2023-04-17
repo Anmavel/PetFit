@@ -38,7 +38,7 @@ export default function UpdatePet(props: Props) {
     return !user ? null : (
         <Layout>
             <h2>Update your {pet.name}</h2>
-            <SubmitForm onSubmit={props.onUpdate} navigateTo={"/pets"} action={"update"} pet={pet}/>
+            <SubmitForm onSubmit={props.onUpdate} navigateTo={"/pets/"+pet.id} action={"update"} pet={pet}/>
         </Layout>
     )
 }

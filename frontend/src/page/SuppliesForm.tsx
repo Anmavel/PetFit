@@ -6,6 +6,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import "./SuppliesForm.css"
 import Layout from "../component/Layout";
+import {toast} from "react-toastify";
 
 
 type Props = {
@@ -35,7 +36,7 @@ export default function SuppliesForm(props: Props) {
 
     if (!pet) {
         return (
-            <h2>Sorry, no Pet with id {petId} allowed :(</h2>
+            <h2>Sorry, no Pet with id {petId} found :(</h2>
         )
     }
 
@@ -52,6 +53,7 @@ export default function SuppliesForm(props: Props) {
         }
         props.onUpdate(newPet)
             .then(() => navigate("/pets/" + pet.id + "/update"))
+        toast("Supplies successfully saved")
     }
 
     return (
@@ -69,7 +71,8 @@ export default function SuppliesForm(props: Props) {
                                     : supply
                             ))}
                             value={supply.nameItem}
-                            placeholder={"water bottle, food"}
+                            placeholder={"water bowl, food bowl, toys"}
+                            maxLength={22}
                             required={true}/>
 
                         <input
@@ -93,14 +96,13 @@ export default function SuppliesForm(props: Props) {
 
                     </div>
                 )}
-                <div>
+                <div className={"containerForButtons"}>
                     <button type={"button"}
                             onClick={() =>
                                 setSupplies([...supplies, {id: uuidv4(), nameItem: "", bought: false}])}>
                         Add supply
                     </button>
                     <button>Save Changes</button>
-                    <br/>
                     <button onClick={() => navigate("/pets/" + pet.id)}>Cancel</button>
                 </div>
 

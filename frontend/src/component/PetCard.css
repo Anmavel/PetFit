@@ -1,6 +1,6 @@
 .petCard {
-    width: 200px;
-    height: auto;
+    width: 180px;
+    height: 387px;
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -9,7 +9,7 @@
     border-style: solid;
     background-color: beige;
     border-color: #57BD96;
-    margin: 1%;
+    margin: 1px;
     color: cadetblue;
     box-shadow: 1px 2px 10px rgba(7, 7, 7, .2);
     cursor: pointer;
@@ -30,7 +30,7 @@
 }
 
 .petCard img{
-    width: 200px;
+    width: 180px;
     height: 150px;
 }
 

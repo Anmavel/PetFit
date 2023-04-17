@@ -1,12 +1,38 @@
 .form-submit{
     display: flex;
-    align-items: center;
     flex-flow: column;
+    align-items: center;
     gap: 10px;
-    height: 65vh;
-    width: 42vh;
+    height: 80vh;
+    width: 43vh;
+    overflow: auto;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 14px;
+    font-size: 16px;
+}
+
+.form-submit .containerForButtons{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 1px;
+
+}
+.form-submit button{
+    width: 200px;
+    height: 50px;
+    background-color: #57BD96;
+    color: white;
+    border: none;
+    margin: 2pX;
+    padding: 10px 10px 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-submit button:hover {
+    background-color: darkgreen;
+    color: white;
 }
 
 .submit-supply {
@@ -32,14 +58,14 @@
 }
 
 .submit-supply input[type="checkbox"] {
-    font-size: large;
+    font-size: 50px;
     cursor: pointer;
 }
 
 .submit-supply button[type="button"] {
     background-color: #dc3545;
     width: 200px;
-    height: 50px;
+    height: 45px;
     color: white;
     border: none;
     padding: 10px 10px 10px 10px;
@@ -51,15 +77,4 @@
     background-color: #c82333;
 }
 
-button {
-    background-color: #57BD96;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-}
 
-button:hover {
-    background-color: darkgreen;
-}

@@ -19,18 +19,18 @@ export default function AddPet(props: AddPetProps) {
     const [name, setName] = useState<string>(props.pet.name)
     const [supplies] = useState<Array<Supply>>(props.pet.supplies)
     const {breeds, breedPictures, getBreedsPicture} = usePetBreeds()
-    const [photo, setPhoto] = useState<string>("" || props.pet.photo)
+    const [photo, setPhoto] = useState<string>(props.pet.photo)
     const [breedIndex, setBreedIndex] = useState<number>(Number(props.pet.nameOfBreed[0]))
     const navigate = useNavigate()
-
 
     function handleChangeName(event: ChangeEvent<HTMLInputElement>) {
         setName(event.target.value)
     }
 
     function handleBreedChange(event: ChangeEvent<HTMLSelectElement>) {
-        setBreedIndex(Number(event.target.value))
-        getBreedsPicture(breeds[Number(event.target.value)].id)
+        const value = Number(event.target.value);
+        setBreedIndex(value)
+        getBreedsPicture(breeds[value].id)
         setPhoto(breedPictures[0].url)
     }
 
@@ -66,12 +66,11 @@ export default function AddPet(props: AddPetProps) {
             })
     }
 
-
     return (
         <form onSubmit={formSubmitHandler} className={"form-submit"}>
             <input type={"text"} onChange={handleChangeName} value={name} placeholder={"write the name of your Pet"}
                    required={true}/>
-            <select value={breedIndex} onChange={handleBreedChange} required={true}>
+            <select value={breedIndex} onChange={handleBreedChange}>
                 <option>Choose breed of your dog:</option>
                 {breeds.map((breed, index) => (
                     <option value={index} key={breed.id}>
@@ -79,14 +78,16 @@ export default function AddPet(props: AddPetProps) {
                     </option>
                 ))}
             </select>
+            {breedIndex >= 0 && (
+                    <img alt={photo} src={getPicture()} onError={handleError}/>
+            )}
             <div>
-                <img onError={handleError} defaultValue={photo} src={getPicture()} alt={""}/>
+                <button onClick={() => navigate("/pets/")}>Back to Gallery</button>
+                <button type={"submit"}>
+                    {props.action === "add" && "Save"}
+                    {props.action === "update" && "Update"}
+                </button>
             </div>
-            <button onClick={() => navigate("/pets/")}>Cancel</button>
-            <button type={"submit"}>
-                {props.action === "add" && "Save"}
-                {props.action === "update" && "Update"}
-            </button>
         </form>
     )
 }
