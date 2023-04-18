@@ -197,7 +197,30 @@ class PetControllerTest {
     @Test
     @DirtiesContext
     @WithMockUser(username = "user")
-    void when_deletePet_and_PetIdExists_then_Return_emptyList() throws Exception {
+    void when_updatePet_with_NotValidName_then_BadRequest() throws Exception {
+        petRepo.save(pet1);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/pets/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"id": "1",
+                                "name": "",
+                                "nameOfBreed":["1","albino"],
+                                "photo":"albino.png",
+                                "supplies":[
+                                {"nameItem":"Item1","bought":false},
+                                {"nameItem":"Item2","bought":true},
+                                {"nameItem":"Item3","bought":false}
+                                    ]}
+                                """)
+                        .with(csrf()))
+                .andExpect(status().isBadRequest());
+    }
+
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user")
+    void when_deletePet_and_PetIdExists_then_Return_deletedPet() throws Exception {
         petRepo.save(pet1);
         mongoUserRepository.save(mongoUser);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/pets/1")
@@ -215,6 +238,17 @@ class PetControllerTest {
                             ]}
                         """));
 
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(username = "user")
+    void when_deletePet_and_PetIdDoesNotExist_then_Return_Status404() throws Exception {
+        petRepo.save(pet1);
+        mongoUserRepository.save(mongoUser);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/pets/2")
+                        .with(csrf()))
+                .andExpect(status().isNotFound());
     }
 
 }
