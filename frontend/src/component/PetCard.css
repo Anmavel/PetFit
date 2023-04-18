@@ -5,12 +5,13 @@
     flex-flow: column;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 1px;
     border-style: solid;
     background-color: beige;
     border-color: #57BD96;
     margin: 1px;
     color: cadetblue;
+    text-transform: capitalize;
     box-shadow: 1px 2px 10px rgba(7, 7, 7, .2);
     cursor: pointer;
     transition: transform .1s;
