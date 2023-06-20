@@ -14,6 +14,10 @@ import Cookies from "js-cookie";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import SignInPage from "./page/SignInPage";
+import Home from "./component/Home";
+import About from "./component/About";
+import Work from "./component/Work";
+import Testimonials from "./component/Testimonials";
 
 axios.interceptors.request.use(function (config) {
     return fetch("/api/csrf").then(() => {
@@ -30,7 +34,10 @@ function App() {
         <div className="App">
 
             <Routes>
-                <Route path={"/"} element={<PetGallery pets={pets} navigateTo={"/pets/add"}/>}/>
+                <Route path={"/"} element={<Home/>}/>
+                <Route path={"/about"} element={<About/>}/>
+                <Route path={"/work"} element={<Work/>}/>
+                <Route path={"/testimonials"} element={<Testimonials/>}/>
                 <Route path={"/sign-up"} element={<SignUpPage/>}/>
                 <Route path={"/sign-in"} element={<SignInPage/>}/>
                 <Route path={"/pets"} element={<PetGallery pets={pets} navigateTo={"/pets/add"}/>}/>
@@ -51,7 +58,6 @@ function App() {
                 pauseOnHover
                 theme="light"
             />
-            {/* Same as */}
             <ToastContainer/>
             <Footer/>
         </div>
