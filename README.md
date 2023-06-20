@@ -6,7 +6,7 @@ Are you Petfit?
 
 ## Technology Stack
 
-The Petfit application uses a Java-based backend built with Spring Boot and Spring Security, and a TypeScript-based frontend built with React. The styling is done using custom CSS.
+The Petfit application uses a Java-based backend built with Spring Boot and Spring Security, and a TypeScript-based frontend built with React. The styling is done using Material UI and custom CSS.
 
 ## Installation and Setup
 
@@ -18,6 +18,8 @@ To run Petfit in your environment, please follow the steps below:
 3. Start the backend with Maven.
 4. cd into the frontend folder and run: npm ci
 5. Start the frontend with the command 'npm start'.
+
+You can also visit the deployed version: [[petfit](https://petfit.fly.dev/ )]
 
 Thank you! 👍
 
