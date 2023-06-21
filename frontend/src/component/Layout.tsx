@@ -1,5 +1,6 @@
 import React, {ReactNode} from "react";
 import "./Main-content.css"
+import NavigationBar from "./NavigationBar";
 
 type Props = {
     children: ReactNode;
@@ -7,7 +8,7 @@ type Props = {
 export default function Layout({children}: Props) {
     return (
         <>
-            {/*<Header image={"/petfit_logo_small.png"}/> */}
+            <NavigationBar/>
             <main className={"main-content"}>{children}</main>
         </>
     );

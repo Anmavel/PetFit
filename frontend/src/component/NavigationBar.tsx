@@ -15,8 +15,11 @@ export default function NavigationBar() {
     const menuOptions = [
         {text: "Home", icon: <HomeIcon/>,},
         {text: "About", icon: <InfoIcon/>,},
+        {text: "Work", icon: <InfoIcon/>,},
         {text: "Testimonials", icon: <CommentRoundedIcon/>,},
         {text: "Contact", icon: <PhoneRoundedIcon/>,},
+        {text: "Pets", icon: <InfoIcon/>,},
+        {text: "Sign Out", icon: <InfoIcon/>,},
     ]
     const navigate = useNavigate()
 
@@ -35,6 +38,9 @@ export default function NavigationBar() {
                 <a href={"/work"}>Work</a>
                 <a href={"/testimonials"}>Testimonials</a>
                 <a href={"/"}>Contact</a>
+                <a href={"/pets"}>Pets</a>
+                <a href={"/sign-out"}>Sign Out</a>
+
                 <button onClick={handleClickSignIn} className={"primary-button"}>Sign In</button>
             </div>
             <div className={"navbar-menu-container"}>

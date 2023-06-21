@@ -27,7 +27,7 @@ export default function SignForm(props: Props) {
         const url = "/api/users" + (props.action === "sign-in" ? "/login" : "")
         const data = props.action === "sign-in" ? {} : {username, password}
         const config = props.action === "sign-in" ? {headers: {Authorization: `Basic ${window.btoa(btoaString)}`}} : {}
-        const navigateTo = props.action === "sign-in" ? window.sessionStorage.getItem('signInRedirect') || '/' : "/";
+        const navigateTo = props.action === "sign-in" ? window.sessionStorage.getItem('signInRedirect') || '/pets' : "/";
         event.preventDefault();
         axios.post(url, data, config)
             .then(() => {

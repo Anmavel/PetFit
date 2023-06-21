@@ -9,7 +9,7 @@ export default function Work() {
         {
             image: ChoosePet,
             title: "Choose a name for your new Pet",
-            text: "Alice or Brownie, you decide"
+            text: "Chocolate or Brownie, you decide"
         },
 
         {
@@ -21,7 +21,7 @@ export default function Work() {
         {
             image: PickUpPet,
             title: "Create a shopping list",
-            text: "Add, Edit and delete tem you need for your pet"
+            text: "Add, edit and delete items you need for your pet"
         },
 
     ]

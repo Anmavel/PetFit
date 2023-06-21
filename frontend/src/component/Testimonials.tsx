@@ -8,14 +8,13 @@ export default function Testimonials(){
                 <p className="primary-subheading">Testimonial</p>
                 <h1 className="primary-heading">What They Are Saying</h1>
                 <p className="primary-text">
-                    Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
-                    elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
+                    Discover what our satisfied customers have to say about our App
                 </p>
             </div>
             <div className="testimonial-section-bottom">
                 <img src={ProfilePicture} alt="" />
                 <p>
-                    Awesome App. It helps me to adopt Bruno and we are inseparable
+                    Awesome App. It helped me to adopt Bruno and we are inseparable!
                 </p>
                 <div className="testimonials-stars-container">
                     <AiFillStar />
