@@ -18,6 +18,7 @@ import Home from "./component/Home";
 import About from "./component/About";
 import Work from "./component/Work";
 import Testimonials from "./component/Testimonials";
+import Contact from "./component/Contact"
 
 axios.interceptors.request.use(function (config) {
     return fetch("/api/csrf").then(() => {
@@ -45,6 +46,7 @@ function App() {
                 <Route path={"/pets/:id"} element={<PetDetails pets={pets} deletePet={deletePet}/>}/>
                 <Route path={"/pets/:id/update"} element={<UpdatePet onUpdate={updatePet} pets={pets}/>}/>
                 <Route path={"/pets/:id/supplies"} element={<SuppliesForm pets={pets} onUpdate={updatePet}/>}/>
+                <Route path={"/contact"} element={<Contact/>}/>
             </Routes>
             <ToastContainer
                 position="top-right"

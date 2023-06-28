@@ -2,13 +2,18 @@ import React from "react"
 import AboutBackground from "../Assets/Banner_Paws_Street.jpeg"
 import AboutBackgroundImage from "../Assets/Dog_Karsten_Round.png"
 import {BsFillPlayCircleFill} from "react-icons/bs";
+import {useLocation} from "react-router-dom";
+import NavigationBar from "./NavigationBar";
 
 export default function About(){
+    const location = useLocation();
       function handleWatchVideo() {
         window.location.replace('https://www.youtube.com/watch?v=xvFZjo5PgG0');
     }
 
     return(
+        <>
+        {location.pathname === "/about" && <NavigationBar/>}
         <div className={"about-section-container"}>
             <div className={"about-background-image-container"}>
                 <img src={AboutBackground} alt={""}/>
@@ -26,6 +31,7 @@ export default function About(){
                 </div>
             </div>
         </div>
+        </>
     )
 
 }

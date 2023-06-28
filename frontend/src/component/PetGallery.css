@@ -8,12 +8,12 @@
     border-radius: 4px;
     width: 50%;
     height: 50%;
+    min-width: 46vh;
     min-height: 400px;
     margin: 2px;
     overflow: auto;
     padding: 5px 5px 5px 5px;
     background: #EBE6E6;
-    min-width: 46vh;
 
 }
 

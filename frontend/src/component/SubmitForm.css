@@ -1,19 +1,18 @@
 .form-submit {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    gap: 10px;
-    height: 70vh;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 5px;
     width: 45vh;
+    height: 100vh;
+    max-height: max-content;
     margin: auto;
-    overflow: auto;
-    padding: 20px 20px 20px 20px;
+    padding: 10px;
     background: #EBE6E6;
     border: #666666;
 }
 
 .form-submit:hover {
-    opacity: 80%;
+    opacity: 0.8;
 }
 
 .form-submit h2 {
@@ -23,10 +22,10 @@
 }
 
 .form-submit input {
-    width: 90%;
-    height: 25px;
-    font-size: medium;
-    padding: 10px 10px 10px 10px;
+    width: 97%;
+    height: 43px;
+    font-size: large;
+    padding: 10px;
 
 }
 .form-submit select {
