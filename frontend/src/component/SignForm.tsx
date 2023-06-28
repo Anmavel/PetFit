@@ -32,7 +32,7 @@ export default function SignForm(props: Props) {
         axios.post(url, data, config)
             .then(() => {
                 if (props.action === "sign-up") {
-                    toast(" 🎉 you were successfully registered")
+                    toast(" 🎉 you were successfully registered. Please Sign In")
                 } else {
                     navigate("/");
                     toast("Welcome")

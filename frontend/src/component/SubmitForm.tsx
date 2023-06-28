@@ -35,7 +35,7 @@ export default function AddPet(props: AddPetProps) {
     }
 
     function handleError() {
-        setPhoto("/petfit_logo_small_icon_only_inverted.png")
+        setPhoto("")
     }
 
     function getPicture() {
@@ -68,7 +68,7 @@ export default function AddPet(props: AddPetProps) {
 
     return (
         <form onSubmit={formSubmitHandler} className={"form-submit"}>
-            <input type={"text"} onChange={handleChangeName} value={name} placeholder={"write the name of your Pet"}
+            <input type={"text"} onChange={handleChangeName} value={name} placeholder={"write the name of your new pet"}
                    maxLength={12} required={true}/>
             <select value={breedIndex} onChange={handleBreedChange}>
                 <option>Choose breed of your dog:</option>
@@ -81,13 +81,13 @@ export default function AddPet(props: AddPetProps) {
             {breedIndex >= 0 && (
                     <img alt={photo} src={getPicture()} onError={handleError}/>
             )}
-            <div>
+
                 <button onClick={() => navigate("/pets/")}>Back to Gallery</button>
                 <button type={"submit"}>
                     {props.action === "add" && "Save"}
                     {props.action === "update" && "Update"}
                 </button>
-            </div>
+
         </form>
     )
 }

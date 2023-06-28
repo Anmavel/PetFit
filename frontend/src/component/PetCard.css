@@ -29,6 +29,9 @@
     text-transform: capitalize;
     font-family: 'Courier New', Courier, monospace;
 }
+.petCard h3{
+    text-align: center;
+}
 
 .petCard img{
     width: 180px;
